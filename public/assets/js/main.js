@@ -332,14 +332,18 @@
     --------------------- */
     var sliderrange = $('#slider-range');
     var amountprice = $('#amount');
+    var startprice = $('#start_price');
+    var endprice = $('#end_price');
     $(function() {
         sliderrange.slider({
             range: true,
-            min: 20,
-            max: 200,
-            values: [0, 160],
+            min: 0,
+            max: 999,
+            values: [0, 999],
             slide: function(event, ui) {
                 amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
+                startprice.val(ui.values[0]);
+                endprice.val(ui.values[1]);
             }
         });
         amountprice.val("$" + sliderrange.slider("values", 0) +

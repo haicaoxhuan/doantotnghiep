@@ -32,4 +32,9 @@ class Product extends Model
     {
         return $this->hasMany(Order_Detail::class, 'product_id', 'id');
     }
+
+    public function productComments()
+    {
+        return $this->hasMany(ProductComment::class, 'product_id', 'id');
+    }
 }

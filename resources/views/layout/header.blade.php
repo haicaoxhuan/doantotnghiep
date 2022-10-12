@@ -5,7 +5,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="logo"></a>
+                        <a href="index.html"><img src="{{asset('assets/images/logo/logo.png') }}" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
@@ -14,12 +14,12 @@
                             <ul>
                                 <li><a href="/">HOME</a>
                                 </li>
-                                <li><a href="/shop">SHOP</a>
+                                <li><a href="{{route('shop')}}">SHOP</a>
                                     <ul class="mega-menu-style mega-menu-mrg-1">
                                         <li>
                                             <ul>
                                                 <li>
-                                                    <a class="dropdown-title" href="#">DANH MỤC SẢN PHẨM</a>
+                                                    <a class="dropdown-title" href="#">CATEGORY</a>
                                                     <ul>
 
                                                         <li><a href="shop.html">standard style</a></li>
@@ -27,7 +27,7 @@
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-title" href="#">THƯƠNG HIỆU</a>
+                                                    <a class="dropdown-title" href="#">BRANDS</a>
                                                     <ul>
                                                         
                                                         <li><a href="product-details.html">tab style 1</a></li>
@@ -71,7 +71,7 @@
                                 <i class="pe-7s-close s-close"></i>
                             </a>
                             <div class="search-wrap-1">
-                                <form action="shop">
+                                <form action="">
                                     <input name="search" placeholder="Search products…" type="text" value="{{request('search')}}">
                                     <button type="submit" class="button-search"><i class="pe-7s-search"></i></button>
                                 </form>

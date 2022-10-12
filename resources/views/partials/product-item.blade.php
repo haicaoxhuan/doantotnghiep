@@ -1,7 +1,7 @@
 
     <div class="product-img img-zoom mb-25">
         <a href="product-details.html">
-            <img src="images/{{$product->productImages[0]->images}}" alt="">
+            <img src={{asset('images/'.$product->productImages[0]->images)}}>
         </a>
         <div class="product-action-wrap">
             <button class="product-action-btn-1" title="Wishlist"><i

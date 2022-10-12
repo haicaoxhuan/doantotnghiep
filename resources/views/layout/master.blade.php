@@ -21,10 +21,10 @@
     <meta property="og:image" content="#" />
     <meta property="og:description" content="Urdan Minimal eCommerce Bootstrap 5 Template is a stunning eCommerce website template that is the best choice for any online store." />
     <!-- Add site Favicon -->
-    <link rel="icon" href="assets/images/favicon/cropped-favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" href="assets/images/favicon/cropped-favicon-192x192.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="assets/images/favicon/cropped-favicon-180x180.png" />
-    <meta name="msapplication-TileImage" content="assets/images/favicon/cropped-favicon-270x270.png" />
+    <link rel="icon" href="{{asset('assets/images/favicon/cropped-favicon-32x32.png') }}" sizes="32x32" />
+    <link rel="icon" href="{{asset('assets/images/favicon/cropped-favicon-192x192.png') }}" sizes="192x192" />
+    <link rel="apple-touch-icon" href="{{asset('assets/images/favicon/cropped-favicon-180x180.png') }}" />
+    <meta name="msapplication-TileImage" content="{{asset('assets/images/favicon/cropped-favicon-270x270.png') }}" />
 
     <!-- All CSS is here
 	============================================ -->
