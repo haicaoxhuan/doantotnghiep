@@ -22,7 +22,11 @@ class HomeController extends Controller
 
         $brands = Brand::all();
 
+        
+
         // dd($brands);
         return view('layout.index', compact('products','productHots','productNews' ,'categorys', 'brands'));
     }
+
+   
 }

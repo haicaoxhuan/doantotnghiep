@@ -22,4 +22,6 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/category/{slugCate}', [ShopController::class, 'category'])->name('shop.category');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('front.product');
 Route::post('/product/{id}', [ProductController::class, 'comment'])->name('front.product.comment');
+Route::post('/modal', [ProductController::class, 'modal'])->name('front.product.modal');
+
 
