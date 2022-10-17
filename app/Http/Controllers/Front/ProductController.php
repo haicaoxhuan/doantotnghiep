@@ -34,8 +34,17 @@ class ProductController extends Controller
 
     public function modal(Request $request)
     {
+
         $productId = $request->product_id;
         $product = Product::find($productId);
+
+        $avgRating = 0;
+        $sumRating = array_sum(array_column($product->productComments->toArray(), 'rating'));
+        $countRating = count($product->productComments);
+        if($countRating != 0){
+            $avgRating = $sumRating/$countRating;
+        }
+
         $output['name'] = $product->name;
         $output['images'] = '<img src="images/'.$product->productImages[0]->images.'">';
         $output['short_des'] = $product->short_des;
@@ -45,6 +54,7 @@ class ProductController extends Controller
         }else{
             $output['price_dc'] = $product->price_dc;
         }
+        $output['rate'] = $avgRating;
 
         return json_encode($output);
     }

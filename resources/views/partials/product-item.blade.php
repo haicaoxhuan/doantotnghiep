@@ -1,5 +1,5 @@
 <div class="product-img img-zoom mb-25">
-    <a href="product-details.html">
+    <a href="{{route('front.product', ['id' => $product->id])}}">
         <img src={{ asset('images/' . $product->productImages[0]->images) }}>
     </a>
     <div class="product-action-wrap">
@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="product-content">
-    <h3><a href="product-details.html">{{ $product->name }}</a></h3>
+    <h3><a href="{{route('front.product', ['id' => $product->id])}}">{{ $product->name }}</a></h3>
     <div class="product-price">
         @if ($product->price_dc != null)
             <span class="old-price"> ${{ $product->price }} </span>

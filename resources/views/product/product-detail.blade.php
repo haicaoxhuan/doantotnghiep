@@ -76,7 +76,7 @@
                             @endif
                         </div>
                         <div class="product-details-review">
-                            <div class="product-rating">
+                            <div class="product-rating ">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $avgRating)
                                         <i class=" fa fa-star"></i>

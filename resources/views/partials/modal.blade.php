@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><i class=" ti-close "></i></a>
+                <a href="#" class="close closeModal" data-bs-dismiss="modal" aria-label="Close"><i class=" ti-close "></i></a>
             </div>
             <div class="modal-body">
                 <div class="row gx-0">
@@ -18,12 +18,8 @@
                             <div class="product-details-price" id="pricePro">
                             </div>
                             <div class="product-details-review">
-                                <div class="product-rating">
-                                    <i class=" ti-star"></i>
-                                    <i class=" ti-star"></i>
-                                    <i class=" ti-star"></i>
-                                    <i class=" ti-star"></i>
-                                    <i class=" ti-star"></i>
+                                <div class="product-rating ratePro">
+                                    
                                 </div>
                                 <span>( 1 Customer Review )</span>
                             </div>
