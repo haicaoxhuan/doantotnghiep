@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="cart-clear-wrap">
                                         <div class="cart-clear btn-hover">
-                                            <button class="updateCart" type="">Update Cart</button>
+
                                         </div>
                                         <div class="cart-clear btn-hover">
                                             <a href="{{ route('destroy.cart') }}">Clear Cart</a>
@@ -165,4 +165,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('addjs')
+    <script src="{{ asset('assets/js/price.min.js') }}"></script>
 @endsection

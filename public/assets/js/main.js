@@ -246,7 +246,7 @@
     /*----------------------------
         Cart Plus Minus Button
     ------------------------------ */
-    
+
     $(".qtybutton").on("click", function() {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
@@ -261,41 +261,34 @@
             }
         }
         $button.parent().find("input").val(newVal);
-        
+
         const rowId = $button.parent().find('input').data('rowid');
         updatedCart(rowId, newVal)
     });
 
-    // $('.qtybutton').on("click", function(){
 
-    //     const rowId = $(this).parent().find('input').data('rowid');
-    //     const newVal = $(this).parent().find('input').val();
-    //     console.log(newVal, rowId);
-    //     updatedCart(rowId, newVal)
-    // });
 
-  
-    function updatedCart(rowId, qty){
+
+    function updatedCart(rowId, qty) {
         $.ajax({
             type: "GET",
             url: "cart/update",
-            data: {rowId: rowId, qty: qty},
-            success: function (response) {
-                // alert('Update successful');
-                $('.product-total').html('');
-                
-                    console.log(response);
-                    $(".product-total").append(
-                        "<span>" + number_format(response.subtotal, 2) + "</span>",
-                    );
-               
+            data: { rowId: rowId, qty: qty },
+            success: function(response) {
+                // $('.product-total').html('');
+                // $(".product-total").append(
+                //     "<span id='formatPrice'> " + response.subtotal + " </span>",
+                // );
+                location.reload();
             },
-            error: function(error){
+            error: function(error) {
                 alert('Update failed');
             }
-            
+
         });
     };
+
+
 
     /*------ ScrollUp -------- */
     $.scrollUp({
