@@ -95,7 +95,7 @@
                                 <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
                             </div>
                             <div class="single-product-cart btn-hover">
-                                <a href="#">Add to cart</a>
+                                <a href="{{route('add.cart',[ 'id' => $product->id])}}">Add to cart</a>
                             </div>
                             <div class="single-product-wishlist">
                                 <a title="Wishlist" href="wishlist.html"><i class="pe-7s-like"></i></a>

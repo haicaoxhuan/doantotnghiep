@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\ShopController;
@@ -24,4 +25,10 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('front.pro
 Route::post('/product/{id}', [ProductController::class, 'comment'])->name('front.product.comment');
 Route::post('/modal', [ProductController::class, 'modal'])->name('front.product.modal');
 
+//cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('add.cart');
+Route::get('cart/delete/{rowId}', [CartController::class, 'delete'])->name('delete.cart');
+Route::get('cart/destroy', [CartController::class, 'destroy'])->name('destroy.cart');
+Route::get('cart/update', [CartController::class, 'update'])->name('update.cart');
 

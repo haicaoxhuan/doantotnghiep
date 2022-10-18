@@ -1,7 +1,8 @@
 <!-- Product Modal start -->
 <div class="modal fade quickview-modal-style" id="exampleModal" tabindex="-1" role="dialog">
     @csrf
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        {{-- <input type="hidden" value="" id="productId"> --}}
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close closeModal" data-bs-dismiss="modal" aria-label="Close"><i class=" ti-close "></i></a>
@@ -29,8 +30,8 @@
                                     <input class="cart-plus-minus-box input-text qty text" name="qtybutton"
                                         value="1">
                                 </div>
-                                <div class="single-product-cart btn-hover">
-                                    <a href="#">Add to cart</a>
+                                <div class="single-product-cart btn-hover" id="productId">
+                                    
                                 </div>
                                 <div class="single-product-wishlist">
                                     <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>

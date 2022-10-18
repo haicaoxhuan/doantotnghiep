@@ -44,7 +44,7 @@ class ProductController extends Controller
         if($countRating != 0){
             $avgRating = $sumRating/$countRating;
         }
-
+        $output['id'] = $product->id;
         $output['name'] = $product->name;
         $output['images'] = '<img src="images/'.$product->productImages[0]->images.'">';
         $output['short_des'] = $product->short_des;

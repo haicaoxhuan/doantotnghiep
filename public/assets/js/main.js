@@ -246,9 +246,7 @@
     /*----------------------------
         Cart Plus Minus Button
     ------------------------------ */
-    var CartPlusMinus = $(".product-quality");
-    CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
-    CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+    
     $(".qtybutton").on("click", function() {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
@@ -263,7 +261,41 @@
             }
         }
         $button.parent().find("input").val(newVal);
+        
+        const rowId = $button.parent().find('input').data('rowid');
+        updatedCart(rowId, newVal)
     });
+
+    // $('.qtybutton').on("click", function(){
+
+    //     const rowId = $(this).parent().find('input').data('rowid');
+    //     const newVal = $(this).parent().find('input').val();
+    //     console.log(newVal, rowId);
+    //     updatedCart(rowId, newVal)
+    // });
+
+  
+    function updatedCart(rowId, qty){
+        $.ajax({
+            type: "GET",
+            url: "cart/update",
+            data: {rowId: rowId, qty: qty},
+            success: function (response) {
+                // alert('Update successful');
+                $('.product-total').html('');
+                $.each(response, function() {
+                    console.log(response);
+                    $(".product-total").append(
+                        "<span>" + response.subtotal + "</span>",
+                    );
+                });
+            },
+            error: function(error){
+                alert('Update failed');
+            }
+            
+        });
+    };
 
     /*------ ScrollUp -------- */
     $.scrollUp({
@@ -613,6 +645,7 @@
                 $("#productImg").html(data.images);
                 $("#productDes").html(data.short_des);
                 $("#countRate").html(data.count);
+                $('#productId').append(`<a class='add_cart' href="/cart/add/${data.id}" >Add to cart</a>`);
 
                 if (data.price_dc != null) {
                     $("#pricePro").append(`
@@ -632,6 +665,7 @@
                         $('.ratePro').append('<i class=" fa fa-star-o" id="rateProo"></i>')
                     }
                 }
+
             },
         });
     });
@@ -639,5 +673,6 @@
         $("#productPice").remove();
         $("#productPiceDc").remove();
         $(".ratePro .fa").remove();
+        $(".add_cart").remove();
     });
 })(jQuery);

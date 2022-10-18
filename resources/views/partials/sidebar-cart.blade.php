@@ -1,39 +1,30 @@
 <div class="sidebar-cart-active">
     <div class="sidebar-cart-all">
-        <a class="cart-close" href="#"><i class="pe-7s-close"></i></a>
+        <a class="cart-close" href="{{route('destroy.cart')}}"><i class="pe-7s-close"></i></a>
         <div class="cart-content">
             <h3>Shopping Cart</h3>
             <ul>
+                @foreach (Cart::content() as $cart)
                 <li>
                     <div class="cart-img">
-                        <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
+                        <a href="{{route('front.product', ['id' => $cart->id])}}"><img src="{{ asset('images/' . $cart->options->images[0]->images) }}" alt=""></a>
                     </div>
                     <div class="cart-title">
-                        <h4><a href="#">Stylish Swing Chair</a></h4>
-                        <span> 1 × $49.00	</span>
+                        <h4><a href="{{route('front.product', ['id' => $cart->id])}}">{{$cart->name}}</a></h4>
+                        <span>{{$cart->qty}} x ${{number_format($cart->price, 2)}}	</span>
                     </div>
                     <div class="cart-delete">
-                        <a href="#">×</a>
+                        <a href="{{route('delete.cart', ['rowId' => $cart->rowId])}}">×</a>
                     </div>
                 </li>
-                <li>
-                    <div class="cart-img">
-                        <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
-                    </div>
-                    <div class="cart-title">
-                        <h4><a href="#">Modern Chairs</a></h4>
-                        <span> 1 × $49.00	</span>
-                    </div>
-                    <div class="cart-delete">
-                        <a href="#">×</a>
-                    </div>
-                </li>
+                @endforeach
+                
             </ul>
             <div class="cart-total">
-                <h4>Subtotal: <span>$170.00</span></h4>
+                <h4>Subtotal: <span>{{Cart::subtotal()}}</span></h4>
             </div>
             <div class="cart-btn btn-hover">
-                <a class="theme-color" href="cart.html">view cart</a>
+                <a class="theme-color" href="{{route('cart')}}">view cart</a>
             </div>
             <div class="checkout-btn btn-hover">
                 <a class="theme-color" href="checkout.html">checkout</a>
