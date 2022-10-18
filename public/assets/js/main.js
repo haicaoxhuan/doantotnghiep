@@ -612,6 +612,7 @@
                 $("#productName").html(data.name);
                 $("#productImg").html(data.images);
                 $("#productDes").html(data.short_des);
+                $("#countRate").html(data.count);
 
                 if (data.price_dc != null) {
                     $("#pricePro").append(`

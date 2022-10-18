@@ -21,7 +21,7 @@
                                 <div class="product-rating ratePro">
                                     
                                 </div>
-                                <span>( 1 Customer Review )</span>
+                                <span id="countRate"></span>
                             </div>
                             <p id="productDes"></p>
                             <div class="product-details-action-wrap">

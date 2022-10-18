@@ -55,6 +55,7 @@ class ProductController extends Controller
             $output['price_dc'] = $product->price_dc;
         }
         $output['rate'] = $avgRating;
+        $output['count'] = '('.$countRating.' '.'Customer Review' .')';
 
         return json_encode($output);
     }
