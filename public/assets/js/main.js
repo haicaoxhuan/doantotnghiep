@@ -283,12 +283,12 @@
             success: function (response) {
                 // alert('Update successful');
                 $('.product-total').html('');
-                $.each(response, function() {
+                
                     console.log(response);
                     $(".product-total").append(
-                        "<span>" + response.subtotal + "</span>",
+                        "<span>" + number_format(response.subtotal, 2) + "</span>",
                     );
-                });
+               
             },
             error: function(error){
                 alert('Update failed');
