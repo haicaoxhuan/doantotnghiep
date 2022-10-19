@@ -100,34 +100,20 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="cart-calculate-discount-wrap mb-40">
-                        <h4>Calculate shipping </h4>
+                        <h4></h4>
                         <div class="calculate-discount-content">
                             <div class="select-style mb-15">
-                                <select class="select-two-active">
-                                    <option>Bangladesh</option>
-                                    <option>Bahrain</option>
-                                    <option>Azerbaijan</option>
-                                    <option>Barbados</option>
-                                    <option>Barbados</option>
-                                </select>
+                                
                             </div>
                             <div class="select-style mb-15">
-                                <select class="select-two-active">
-                                    <option>State / County</option>
-                                    <option>Bahrain</option>
-                                    <option>Azerbaijan</option>
-                                    <option>Barbados</option>
-                                    <option>Barbados</option>
-                                </select>
+                                
                             </div>
                             <div class="input-style">
-                                <input type="text" placeholder="Town / City">
                             </div>
                             <div class="input-style">
-                                <input type="text" placeholder="Postcode / ZIP">
                             </div>
                             <div class="calculate-discount-btn btn-hover">
-                                <a class="btn theme-color" href="#">Update</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -151,14 +137,14 @@
                         <div class="grand-total-content">
                             <h3>Subtotal <span>{{ $subtotal }}</span></h3>
                             <div class="grand-shipping">
-                                <span>Shipping fee: <span>phí ship ở đây</span></span>
+                                <span>Discount: <span></span></span>
                             </div>
                             <div class="grand-total">
                                 <h4>Total <span>{{ $total }}</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">
-                            <a class="btn theme-color" href="checkout.html">Proceed to checkout</a>
+                            <a class="btn theme-color" href="{{route('checkout')}}">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>

@@ -15,8 +15,6 @@ class CartController extends Controller
         $carts = Cart::content();
         $total = Cart::total();
         $subtotal = Cart::subtotal();
-        
-        // dd($carts);
 
         return view('cart.cart', compact('carts', 'total', 'subtotal'));
     }

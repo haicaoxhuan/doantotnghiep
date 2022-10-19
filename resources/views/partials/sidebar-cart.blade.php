@@ -27,7 +27,7 @@
                 <a class="theme-color" href="{{route('cart')}}">view cart</a>
             </div>
             <div class="checkout-btn btn-hover">
-                <a class="theme-color" href="checkout.html">checkout</a>
+                <a class="theme-color" href="{{route('checkout')}}">checkout</a>
             </div>
         </div>
     </div>

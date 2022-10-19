@@ -266,19 +266,12 @@
         updatedCart(rowId, newVal)
     });
 
-
-
-
     function updatedCart(rowId, qty) {
         $.ajax({
             type: "GET",
             url: "cart/update",
             data: { rowId: rowId, qty: qty },
             success: function(response) {
-                // $('.product-total').html('');
-                // $(".product-total").append(
-                //     "<span id='formatPrice'> " + response.subtotal + " </span>",
-                // );
                 location.reload();
             },
             error: function(error) {
@@ -287,8 +280,6 @@
 
         });
     };
-
-
 
     /*------ ScrollUp -------- */
     $.scrollUp({

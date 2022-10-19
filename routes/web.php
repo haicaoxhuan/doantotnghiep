@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\ShopController;
@@ -31,4 +32,7 @@ Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('add.cart');
 Route::get('cart/delete/{rowId}', [CartController::class, 'delete'])->name('delete.cart');
 Route::get('cart/destroy', [CartController::class, 'destroy'])->name('destroy.cart');
 Route::get('cart/update', [CartController::class, 'update'])->name('update.cart');
+
+//checkout
+Route::get('cart/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
