@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\HomeController;
@@ -35,4 +36,13 @@ Route::get('cart/update', [CartController::class, 'update'])->name('update.cart'
 
 //checkout
 Route::get('cart/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('cart/address', [CheckoutController::class, 'address'])->name('checkout.address');
+Route::post('cart/checkout', [CheckoutController::class, 'addOrder'])->name('checkout.addorder');
 
+
+//admin
+Route::group(['middleware' => ['session']], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/login', ['as' => 'login', 'admin'=>AdminController::class, 'auth'])->name('admin.auth');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin.login');
+});

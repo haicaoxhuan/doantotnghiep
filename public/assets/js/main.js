@@ -266,6 +266,12 @@
         updatedCart(rowId, newVal)
     });
 
+    $(".text").on("blur", function(){
+        const rowId = $(this).parent().find('input').data('rowid');
+        const qty = $(this).parent().find('input').val();
+        updatedCart(rowId, qty)
+    })
+
     function updatedCart(rowId, qty) {
         $.ajax({
             type: "GET",
@@ -659,4 +665,36 @@
         $(".ratePro .fa").remove();
         $(".add_cart").remove();
     });
+
+
+
+    $(document).ready(function(){
+        $('.choose').on('change', function(){
+            var action = $(this).attr('id');
+            var map = $(this).val();
+            var result = '';
+            console.log(action);
+            if(action == 'city')
+            {
+                result = 'district';
+            }else{
+                result = 'wards';
+            }
+            $.ajax({
+                type: "POST",
+                headers: {
+                    "X-CSRF-Token": $('input[name="_token"]').val(),
+                },
+                url: "/cart/address",
+                data: {
+                    action: action,
+                    map: map,
+                },
+                success: function (response) {
+                    $('#'+result).html(response);
+                    console.log(response);
+                }
+            });
+        })
+    })
 })(jQuery);
