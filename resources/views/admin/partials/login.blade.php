@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin//plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/admin//dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
 </head>
 
 <body class="hold-transition login-page">
@@ -27,7 +28,13 @@
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="" method="post">
+                <form action="{{ route('admin.login') }}" method="post">
+                    @csrf
+                    @error('error')
+                        <div class="alert alert-danger text-center" id="login-alert" role="alert">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" name="email">
                         <div class="input-group-append">
@@ -91,6 +98,13 @@
     <script src="{{ asset('assets/admin//plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/admin//dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $("#login-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#login-alert").slideUp(500);
+        });
+    </script>
 </body>
 
 </html>

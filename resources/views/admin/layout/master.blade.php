@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AdminLTE 3 | Fixed Navbar Layout</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -13,7 +14,12 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/css/vendor/bootstrap.min.css') }}" >
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/show.css') }}">
     @yield('addcssadmin')
 </head>
 
@@ -45,8 +51,21 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/admin/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script>
 
+    <script src="{{asset('assets/js/vendor/bootstrap.min.js')}}"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="{{ asset('assets/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
+    
+    <script src="{{ asset('assets/admin/dist/js/deleteRecord.js') }}"></script>
+    <script type="module">
+        // Show alert
+        @if(session('status_succeed'))
+            toastr.success('{{session('status_succeed')}}', {timeOut: 5000})
+        @elseif(session('status_failed'))
+            toastr.error('{{session('status_failed')}}', {timeOut: 5000})
+        @endif
+    </script>
     @yield('addjsadmin')
 </body>
 

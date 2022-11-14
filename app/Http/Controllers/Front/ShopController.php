@@ -25,7 +25,6 @@ class ShopController extends Controller
         $products = $this->filter($products, $request);
         
         $products = $this->sort($products, $sortBy);
-        // dd($products);
 
         return view('shop.shop', compact('products', 'categorys', 'brands'));
     }
@@ -74,7 +73,7 @@ class ShopController extends Controller
                 break;
         }
         
-        $products = $products->paginate(2);
+        $products = $products->paginate(12);
         $products->appends(['sort_by' => $sortBy]);
 
         return $products;

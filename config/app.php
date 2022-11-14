@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,8 +174,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\AdminServiceProvider::class,
+
 
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
     ],
 
     /*
@@ -232,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
     ],
 
 ];

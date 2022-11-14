@@ -10,23 +10,35 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.partials.dashboard');
+        if (Auth::guard('admin')->check()) {
+            return view('admin.partials.dashboard');
+        }
     }
+
     public function auth()
     {
         return view('admin.partials.login');
     }
+
     public function login(Request $request)
     {
-        $data = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-        if(Auth::attempt($data)){
-            return redirect(route('admin.index'));
+        $data = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        if (Auth::guard('admin')->attempt($data)) {
+            // $request->session()->regenerate();
+            return redirect()->route('admin.index');
         }else{
-            return redirect(route('admin.auth'));
+            return back()->withErrors([
+                'error' => (['message' => 'Tài khoản hoặc mật khẩu không đúng']),
+            ]);
         }
-        
+    }
+
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.auth');
     }
 }
