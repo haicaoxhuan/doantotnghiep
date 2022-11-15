@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Brands</h1>
+                    <h1>{{trans('language.cate')}}</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -30,7 +30,7 @@
                                     </form>
                                   </div>
                                 <a class="btn btn-success btn-sm rounded-0 create"
-                                    href="{{ route('admin.categories.create') }}"><i class="fa fa-plus pad"></i>Thêm mới</a>
+                                    href="{{ route('admin.categories.create') }}"><i class="fa fa-plus pad"></i>{{trans('language.create')}}</a>
                             </div>
 
                         </div>
@@ -39,9 +39,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" scope="col">#</th>
-                                    <th class="text-center" scope="col">Tên danh mục</th>
-                                    <th class="text-center" scope="col">Ảnh</th>
-                                    <th class="text-center" scope="col-3">Tác vụ</th>
+                                    <th class="text-center" scope="col">{{trans('language.cate_name')}}</th>
+                                    <th class="text-center" scope="col">{{trans('language.image')}}</th>
+                                    <th class="text-center" scope="col-3">{{trans('language.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +54,7 @@
                                         <td class="text-center"><img src="{{ asset($category->images) }}"  alt=""
                                                 class="img-br"></td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.categories.edit', ['id' => $category->id]) }}"><i class="fa fa-edit pad"></i>Sửa</a>
+                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.categories.edit', ['id' => $category->id]) }}"><i class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
                                             @if($category->deleted_at  == null)
                                             <a class="btn btn-danger btn-sm rounded-0 deleteTable" href="{{ route('admin.brand.destroy', ['id' => $category->id]) }}"
                                                 data-id="{{$category->id}}"

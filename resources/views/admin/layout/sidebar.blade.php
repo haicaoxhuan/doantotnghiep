@@ -59,7 +59,7 @@
             </ul>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                {{-- Brands --}}
+                {{-- Cate --}}
                 <li class="nav-item">
                     <a href="{{ route('admin.categories.index') }}" class="nav-link">
                         <i class="nav-icon fa fa-flag"></i>
@@ -70,6 +70,19 @@
 
                 </li>
             </ul>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+            data-accordion="false">
+            {{-- Product --}}
+            <li class="nav-item">
+                <a href="{{ route('admin.product.index') }}" class="nav-link">
+                    <i class="nav-icon fa fa-flag"></i>
+                    <p>
+                        Sản phẩm
+                    </p>
+                </a>
+
+            </li>
+        </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>

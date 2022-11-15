@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoriesController;
+use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\HomeController;
@@ -65,5 +66,13 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/categories/edit/{id}', [CategoriesController::class, 'edit'])->name('admin.categories.edit');
         Route::post('/categories/update/{id}', [CategoriesController::class, 'update'])->name('admin.categories.update');
         Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('admin.categories.destroy');
+
+        //product
+        Route::get('/product', [BackendProductController::class, 'index'])->name('admin.product.index');
+        Route::get('/product/create', [BackendProductController::class, 'create'])->name('admin.product.create');
+        Route::post('/product/store', [BackendProductController::class, 'store'])->name('admin.product.store');
+        Route::get('/product/edit/{id}', [BackendProductController::class, 'edit'])->name('admin.product.edit');
+        Route::post('/product/update/{id}', [BackendProductController::class, 'update'])->name('admin.product.update');
+        Route::delete('/product/delete/{id}', [BackendProductController::class, 'destroy'])->name('admin.product.destroy');
     });
 });

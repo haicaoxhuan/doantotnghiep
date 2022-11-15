@@ -13,6 +13,27 @@ class Product extends Model
 
     protected $guarded = [];
 
+    const NOI = 1;
+    const KO_NOI = 0;
+
+    public static function checkFeatured($status)
+    {
+        $html = '';
+        switch ($status) {
+            case self::NOI:
+                $html .= "<span>" . trans('language.featured') . "</span>";
+                break;
+            case self::KO_NOI:
+                $html .= "<span>" . trans('language.no_featured') . "</span>";
+                break;
+            default:
+                $html .= "<span>" . trans('language.no_featured') . "</span>";
+                break;
+        }
+        return $html;
+    }
+
+
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id');

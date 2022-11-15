@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Thương Hiệu</h1>
+                    <h1>{{trans('language.brand')}}</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -22,26 +22,26 @@
                     <!-- general form elements -->
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">Thêm Thương Hiệu</h3>
+                            <h3 class="card-title">{{trans('language.create_brand')}}</h3>
                         </div>
                         <!-- form start -->
                         <form action="{{route('admin.brand.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Tên thương hiệu</label>
+                                    <label for="exampleInputEmail1">{{trans('language.brand_name')}}</label>
                                     <input type="text" class="form-control" id="slug" placeholder="Nhập tên thương hiệu" name="name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Slug</label>
+                                    <label for="exampleInputEmail1">{{trans('language.slug')}}</label>
                                     <input type="text" class="form-control" id="convert_slug"  placeholder="Nhập slug" name="slug">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Ảnh</label>
+                                    <label for="exampleInputFile">{{trans('language.image')}}</label>
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="exampleInputFile" name="image" onchange="preview_thumbail(this);">
-                                            <label class="custom-file-label" for="exampleInputFile">Chọn ảnh</label>
+                                            <label class="custom-file-label" for="exampleInputFile">{{trans('language.choose_img')}}</label>
                                         </div>
                                     </div>
                                     <img class="img-pr" id="img_brand" src="" alt="your image" onerror="this.onerror=null;this.src='{{ asset('images/preview.png') }}';">
@@ -50,7 +50,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Thêm</button>
+                                <button type="submit" class="btn btn-primary">{{trans('language.create')}}</button>
                             </div>
                         </form>
                     </div>

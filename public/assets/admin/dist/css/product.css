@@ -1,0 +1,36 @@
+.stt{
+    width: 5%;
+}
+.pro-name{
+    width: 20%;
+}
+.pro-img{
+    width: 10%;
+}
+.pro-price{
+    width: 10%;
+}
+.pro-pricedc{
+    width: 10%;
+}
+.qty{
+    width: 7%;
+}
+.sku{
+    width: 7%;
+}
+.feature{
+    width: 5%;
+}
+.action{
+    width: 20%;
+}
+.flex-bw{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-bw .pdl{
+    padding-left: 0;
+    width: 45%;
+}
