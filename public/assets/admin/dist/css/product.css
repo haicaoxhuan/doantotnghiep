@@ -34,3 +34,20 @@
     padding-left: 0;
     width: 45%;
 }
+.area{
+    display: flex;
+    flex-direction: column;
+}
+
+.area textarea{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    resize: none;
+    min-height: 150px;
+}
+
+.area textarea:focus{
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}

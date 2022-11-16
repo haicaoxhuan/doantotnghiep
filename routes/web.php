@@ -74,5 +74,8 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/product/edit/{id}', [BackendProductController::class, 'edit'])->name('admin.product.edit');
         Route::post('/product/update/{id}', [BackendProductController::class, 'update'])->name('admin.product.update');
         Route::delete('/product/delete/{id}', [BackendProductController::class, 'destroy'])->name('admin.product.destroy');
+
+        Route::post('/product/upload', [BackendProductController::class, 'upload'])->name('admin.product.upload');
+        Route::get('/product/remove', [BackendProductController::class, 'remove'])->name('admin.product.remove');
     });
 });

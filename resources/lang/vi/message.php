@@ -15,4 +15,8 @@ return [
     'update_category_success' => 'Cập nhật danh mục thành công',
     'confirm_delete_category' => 'Bạn có muốn xóa danh mục này',
 
+    //product
+    "create_product_successd" => 'Tạo sản phẩm thành công',
+    'update_product_success' => 'Cập nhật sản phẩm thành công',
+    'confirm_delete_product' => 'Bạn có muốn xóa sản phẩm này',
 ];

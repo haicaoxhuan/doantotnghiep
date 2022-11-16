@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Product_Image;
+use App\Models\ProductCategory;
 use App\Models\ProductComment;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,16 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+        $category = ProductCategory::select(
+            'pro_cates.*',
+            'products.id as product_id',
+            'categorys.id as category_id',
+            'categorys.name as category_name',
+        )->leftjoin('products', 'products.id', 'pro_cates.product_id')
+        ->leftjoin('categorys', 'categorys.id', 'pro_cates.category_id')
+        ->where('pro_cates.product_id', $id)
+        ->get();
+
         $avgRating = 0;
         $sumRating = array_sum(array_column($product->productComments->toArray(), 'rating'));
         $countRating = count($product->productComments);
@@ -21,7 +32,7 @@ class ProductController extends Controller
             $avgRating = $sumRating/$countRating;
         }
 
-        return view('product.product-detail', compact('product', 'countRating', 'avgRating'));
+        return view('product.product-detail', compact('product', 'countRating', 'avgRating', 'category'));
     }
 
     public function comment(Request $request)

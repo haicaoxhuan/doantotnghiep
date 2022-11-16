@@ -17,6 +17,7 @@ return [
     'action' => 'Tác vụ',
     'slug' => 'Slug',
     'edit' => 'Sửa',
+    'upload_img' => 'Tải ảnh',
 
     //brand
     'brand' => 'Thương hiệu',

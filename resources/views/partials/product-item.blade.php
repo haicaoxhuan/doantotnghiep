@@ -1,6 +1,6 @@
 <div class="product-img img-zoom mb-25">
     <a href="{{route('front.product', ['id' => $product->id])}}">
-        <img src={{ asset('images/' . $product->productImages[0]->images) }}>
+        <img src={{ asset($product->productImages[0]->images) }}>
     </a>
     <div class="product-action-wrap">
         <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i></button>

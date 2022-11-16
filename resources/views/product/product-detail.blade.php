@@ -34,7 +34,7 @@
                                     @foreach ($product->productImages as $item)
                                         <div class="swiper-slide">
                                             <div class="product-details-small-img">
-                                                <img src={{ asset('images/' . $item->images) }} alt="Product Thumnail">
+                                                <img src={{ asset($item->images) }} alt="Product Thumnail">
                                             </div>
                                         </div>
                                     @endforeach
@@ -49,12 +49,12 @@
                                     <div class="swiper-slide">
                                         <div class="easyzoom-style">
                                             <div class="easyzoom easyzoom--overlay">
-                                                <a href={{ asset('images/' . $item->images) }}>
-                                                    <img src={{ asset('images/' . $item->images) }} alt="">
+                                                <a href={{ asset($item->images) }}>
+                                                    <img src={{ asset($item->images) }} alt="">
                                                 </a>
                                             </div>
                                             <a class="easyzoom-pop-up img-popup"
-                                                href={{ asset('images/' . $item->images) }}>
+                                                href={{ asset($item->images) }}>
                                                 <i class="pe-7s-search"></i>
                                             </a>
                                         </div>
@@ -109,7 +109,9 @@
                                 <li><span class="title">SKU:</span> {{ $product->sku }}</li>
                                 <li><span class="title">Category:</span>
                                     <ul>
-                                        <li><a href="#">{{ $product->category->name }}</a></li>
+                                        @foreach ($category as $item)
+                                         <li><a href="#">{{ $item->category_name }}, </a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
                                 <li><span class="title">Tags:</span>
