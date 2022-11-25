@@ -89,7 +89,7 @@
                                     <ul>
                                         @foreach ($categorys as $category)
                                             @php
-                                                $count_cate_product = App\Models\Product::where('category_id', $category->id)
+                                                $count_cate_product = App\Models\ProductCategory::where('category_id', $category->id)
                                                     ->groupBy('category_id')
                                                     ->count();
                                             @endphp

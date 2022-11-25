@@ -1,13 +1,13 @@
 <div class="sidebar-cart-active">
     <div class="sidebar-cart-all">
-        <a class="cart-close" href="{{route('destroy.cart')}}"><i class="pe-7s-close"></i></a>
+        <a class="cart-close" ><i class="pe-7s-close"></i></a>
         <div class="cart-content">
             <h3>Shopping Cart</h3>
             <ul>
                 @foreach (Cart::content() as $cart)
                 <li>
                     <div class="cart-img">
-                        <a href="{{route('front.product', ['id' => $cart->id])}}"><img src="{{ asset('images/' . $cart->options->images[0]->images) }}" alt=""></a>
+                        <a href="{{route('front.product', ['id' => $cart->id])}}"><img src="{{ asset($cart->options->images) }}" alt=""></a>
                     </div>
                     <div class="cart-title">
                         <h4><a href="{{route('front.product', ['id' => $cart->id])}}">{{$cart->name}}</a></h4>

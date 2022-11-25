@@ -56,20 +56,20 @@
                                             {{ isset($idx) ? ($products->currentPage() - 1) * $products->perPage() + $idx + 1 : '' }}
                                         </td>
                                         <td class="text-center">{{ $product->name }}</td>
-                                        <td class="text-center"><img src="{{ asset($product->images) }}"  alt=""class="img-br"></td>
+                                        <td class="text-center"> <img src="{{ asset($product->images[0]) }}"  alt=""class="img-br"></td>
                                         <td class="text-center">{{number_format($product->price)}}đ</td>
                                         <td class="text-center">{{number_format(isset($product->price_dc) ? $product->price_dc : 0)}}đ</td>
                                         <td class="text-center">{{$product->quantity}}</td>
                                         <td class="text-center">{{$product->sku}}</td>
                                         <td class="text-center">{!! \App\Models\Product::checkFeatured($product->featured) !!}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.categories.edit', ['id' => $product->id]) }}"><i class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
+                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.product.edit', ['id' => $product->id]) }}"><i class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
                                             @if($product->deleted_at  == null)
-                                            <a class="btn btn-danger btn-sm rounded-0 deleteTable" href="{{ route('admin.brand.destroy', ['id' => $product->id]) }}"
+                                            <a class="btn btn-danger btn-sm rounded-0 deleteTable" href="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
                                                 data-id="{{$product->id}}"
-                                                data-title="{{trans('message.confirm_delete_brand')}}" 
+                                                data-title="{{trans('message.confirm_delete_product')}}" 
                                                 data-text="<span >{{$product->name}}</span>" 
-                                                data-url="{{ route('admin.categories.destroy', ['id' => $product->id]) }}"
+                                                data-url="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
                                                 data-method="DELETE" data-icon="question">
                                                 <i class="fa fa-trash pad"></i>{{ trans('language.delete') }}</a>
                                             @endif

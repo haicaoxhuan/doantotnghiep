@@ -28,7 +28,8 @@ $(function() {
         previewTemplate: previewTemplate,
         autoQueue: false,
         previewsContainer: "#previews",
-        clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+        clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
+        
     })
 
     myDropzone.on("addedfile", function(file) {
@@ -52,8 +53,11 @@ $(function() {
     }),
 
     $(document).on("click", ".delete", function() {
+        console.log(1);
         var $ele = $(this).parent().parent().parent();
+        console.log($ele);
         var file_name = $(this).closest('.file-row').find('input').val();
+        console.log(file_name);
         $.ajax({
             url: '/admin/product/remove',
             cache: false,
@@ -72,7 +76,6 @@ $(function() {
     // Update the total progress bar
     myDropzone.on("totaluploadprogress", function(progress) {
         document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-        console.log(1);
     })
 
     myDropzone.on("sending", function(file) {
@@ -85,7 +88,6 @@ $(function() {
     // Hide the total progress bar when nothing's uploading anymore
     myDropzone.on("queuecomplete", function(progress) {
         document.querySelector("#total-progress").style.opacity = "0"
-        console.log(2);
     })
     // DropzoneJS Demo Code End
 })

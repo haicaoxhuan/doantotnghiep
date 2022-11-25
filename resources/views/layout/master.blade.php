@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/easyzoom.css') }}" >
     <link rel="stylesheet" href="{{asset('assets/css/plugins/slinky.css') }}" >
     <link rel="stylesheet" href="{{asset('assets/css/style.css') }}" >
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/toastr/toastr.min.css') }}">
 
     @yield('addcss')
 </head>
@@ -89,7 +90,16 @@
     <script src="{{asset('assets/js/plugins/ajax-mail.js')}}"></script>
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
-
+    <script src="{{asset('assets/js/cart.js')}}"></script>
+    <script src="{{ asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
+    <script type="module">
+        // Show alert
+        @if(session('status_succeed'))
+            toastr.success('{{session('status_succeed')}}', {timeOut: 5000})
+        @elseif(session('status_failed'))
+            toastr.error('{{session('status_failed')}}', {timeOut: 5000})
+        @endif
+    </script>
     @yield('addjs')
 </body>
 

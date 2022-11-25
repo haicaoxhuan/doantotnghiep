@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,10 +22,7 @@ class HomeController extends Controller
         $categorys = Category::all();
 
         $brands = Brand::all();
-
         
-
-        // dd($brands);
         return view('layout.index', compact('products','productHots','productNews' ,'categorys', 'brands'));
     }
 

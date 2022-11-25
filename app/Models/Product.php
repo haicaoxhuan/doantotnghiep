@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'products';
 
@@ -15,6 +17,10 @@ class Product extends Model
 
     const NOI = 1;
     const KO_NOI = 0;
+
+    protected $casts = [
+        'images' => 'array',
+    ];
 
     public static function checkFeatured($status)
     {

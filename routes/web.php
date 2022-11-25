@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoriesController;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\HomeController;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/category/{slugCate}', [ShopController::class, 'category'])->name('shop.category');
@@ -31,25 +32,35 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('front.pro
 Route::post('/product/{id}', [ProductController::class, 'comment'])->name('front.product.comment');
 Route::post('/modal', [ProductController::class, 'modal'])->name('front.product.modal');
 
-//cart
-Route::get('/cart', [CartController::class, 'index'])->name('cart');
-Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('add.cart');
-Route::get('cart/delete/{rowId}', [CartController::class, 'delete'])->name('delete.cart');
-Route::get('cart/destroy', [CartController::class, 'destroy'])->name('destroy.cart');
-Route::get('cart/update', [CartController::class, 'update'])->name('update.cart');
-
 //checkout
 Route::get('cart/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('cart/address', [CheckoutController::class, 'address'])->name('checkout.address');
 Route::post('cart/checkout', [CheckoutController::class, 'addOrder'])->name('checkout.addorder');
 
-
+//customer
+Route::middleware(['customer'])->group(function () {
+    Route::prefix('customer')->group(function () {
+        Route::get('/login', [CustomerController::class, 'auth'])->name('customer.auth');
+        Route::post('/login', [CustomerController::class, 'login'])->name('customer.login');
+        Route::post('/logout', [CustomerController::class, 'logout'])->name('customer.logout');
+        Route::post('/register', [CustomerController::class, 'register'])->name('customer.register');
+    });
+    //regis
+    Route::get('/success', [CustomerController::class, 'registersucces'])->name('customer.registersucces');
+    //cart
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('add.cart');
+    Route::get('cart/delete/{id}', [CartController::class, 'delete'])->name('delete.cart');
+    Route::get('cart/destroy', [CartController::class, 'destroy'])->name('destroy.cart');
+    Route::get('/cart/update', [CartController::class, 'update'])->name('update.cart');
+    Route::get('/cart/loadcart', [CartController::class, 'loadcart'])->name('loadcart.cart');
+});
 //admin
 Route::prefix('admin')->group(function () {
-Route::get('/login', [AdminController::class, 'auth'])->name('admin.auth');
-Route::post('/login', [AdminController::class, 'login'])->name('admin.login');
-Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
-Route::middleware(['admin'])->group(function () {
+    Route::get('/login', [AdminController::class, 'auth'])->name('admin.auth');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin.login');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');
         //brand
         Route::get('/brands', [BrandController::class, 'index'])->name('admin.brand.index');
@@ -75,7 +86,7 @@ Route::middleware(['admin'])->group(function () {
         Route::post('/product/update/{id}', [BackendProductController::class, 'update'])->name('admin.product.update');
         Route::delete('/product/delete/{id}', [BackendProductController::class, 'destroy'])->name('admin.product.destroy');
 
-        Route::post('/product/upload', [BackendProductController::class, 'upload'])->name('admin.product.upload');
+        Route::post('/product/upload', [BackendProductController::class, 'uploadFile'])->name('admin.product.upload');
         Route::get('/product/remove', [BackendProductController::class, 'remove'])->name('admin.product.remove');
     });
 });

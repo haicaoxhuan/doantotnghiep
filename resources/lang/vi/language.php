@@ -41,6 +41,7 @@ return [
     'product_name' => 'Tên sản phẩm',
     'no_featured' => 'Không nổi bật',
     'create_pro' => 'Thêm sản phẩm',
+    'edit_pro' => 'Sửa sản phẩm',
     'pro_des' => 'Mô tả',
-    'pro_sort_des' => 'Mô tả ngắn'
+    'pro_sort_des' => 'Mô tả ngắn',
 ];

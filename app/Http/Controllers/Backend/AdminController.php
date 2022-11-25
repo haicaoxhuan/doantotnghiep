@@ -27,7 +27,6 @@ class AdminController extends Controller
             'password' => ['required'],
         ]);
         if (Auth::guard('admin')->attempt($data)) {
-            // $request->session()->regenerate();
             return redirect()->route('admin.index');
         }else{
             return back()->withErrors([

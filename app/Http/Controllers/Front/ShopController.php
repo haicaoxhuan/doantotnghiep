@@ -37,8 +37,9 @@ class ShopController extends Controller
         $brands = Brand::all();
 
         $categorys = Category::all();
-
+       
         $products = Category::where('slug', $slugCate)->first()->products->toQuery();
+        
 
         $products = $this->filter($products, $request);
 

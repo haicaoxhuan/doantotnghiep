@@ -4,6 +4,9 @@
 @endsection
 
 @section('body')
+    @php
+        $sum = 0;
+    @endphp
     <div class="breadcrumb-area bg-gray-4 breadcrumb-padding-1">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -44,32 +47,30 @@
                                         @foreach ($carts as $cart)
                                             <tr>
                                                 <td class="product-thumbnail">
-                                                    <a href="{{ route('front.product', ['id' => $cart->id]) }}"><img
-                                                            src="{{ asset('images/' . $cart->options->images[0]->images) }}"
-                                                            alt=""></a>
+                                                    <a href="{{ route('front.product', ['id' => $cart->id]) }}"><img src="{{ asset($cart->images) }}" alt=""></a>
                                                 </td>
                                                 <td class="product-name">
-                                                    <h5><a
-                                                            href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->name }}</a>
-                                                    </h5>
+                                                    <h5><a href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->product_name }}</a></h5>
                                                 </td>
                                                 <td class="product-cart-price"><span
-                                                        class="amount">${{ number_format($cart->price, 2) }}</span></td>
+                                                        class="amount">${{ number_format($cart->price) }}</span></td>
                                                 <td class="cart-quality">
                                                     <div class="product-quality">
                                                         <div class="dec qtybutton">-</div>
                                                         <input class="cart-plus-minus-box input-text qty text"
-                                                            name="qtybutton" value="{{ $cart->qty }}"
+                                                            name="qtybutton" value="{{ $cart->quantity }}"
                                                             data-rowid="{{ $cart->rowId }}" id="qtyCart">
                                                         <div class="inc qtybutton">+</div>
                                                     </div>
                                                 </td>
+                                                @php
+                                                    $subtotal = $cart->price * $cart->quantity;
+                                                    $sum += $subtotal;
+                                                @endphp
                                                 <td class="product-total">
-                                                    <span>${{ number_format($cart->price * $cart->qty, 2) }}</span>
+                                                    <span>${{ number_format($subtotal) }}</span>
                                                 </td>
-                                                <td class="product-remove"><a
-                                                        href="{{ route('delete.cart', ['rowId' => $cart->rowId]) }}"><i
-                                                            class=" ti-trash "></i></a></td>
+                                                <td class="product-remove"><a href="{{route('delete.cart', ['id' => $cart->cartDetailId])}}"><i class=" ti-trash "></i></a></td>
                                             </tr>
                                         @endforeach
 
@@ -85,10 +86,10 @@
                                     </div>
                                     <div class="cart-clear-wrap">
                                         <div class="cart-clear btn-hover">
-
                                         </div>
                                         <div class="cart-clear btn-hover">
-                                            <a href="{{ route('destroy.cart') }}">Clear Cart</a>
+                                                {{-- <a href="">Clear Cart</a> --}}
+                                                <a href="{{ route('destroy.cart') }}">Clear Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -135,12 +136,12 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="grand-total-wrap">
                         <div class="grand-total-content">
-                            <h3>Subtotal <span>{{ $subtotal }}</span></h3>
+                            <h3>Subtotal <span>{{ $sum }}</span></h3>
                             <div class="grand-shipping">
                                 <span>Discount: <span></span></span>
                             </div>
                             <div class="grand-total">
-                                <h4>Total <span>{{ $total }}</span></h4>
+                                <h4>Total <span>{{ $sum }}</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">

@@ -16,7 +16,7 @@
                             <div class="single-category-wrap-2 text-center" data-aos="fade-up" data-aos-delay="200">
                                 <div class="category-img-2">
                                     <a href="shop.html">
-                                        <img class="category-normal-img" src="images/{{ $category->images }}"
+                                        <img class="category-normal-img" src="{{ $category->images }}"
                                             alt="">
                                     </a>
                                 </div>
@@ -145,7 +145,7 @@
                     @foreach ($brands as $brand)
                         <div class="swiper-slide">
                             <div class="single-brand-logo" data-aos="fade-up" data-aos-delay="200">
-                                <a href="#"><img src="images/{{ $brand->images }}" alt=""></a>
+                                <a href="#"><img src="{{ $brand->images }}" alt=""></a>
                             </div>
                         </div>
                     @endforeach

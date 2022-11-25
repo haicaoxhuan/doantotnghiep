@@ -1,11 +1,14 @@
 <header class="header-area header-responsive-padding header-height-1">
-           
+    @php
+        $categorys = App\Models\Category::all();
+        $brands = App\Models\Brand::all();
+    @endphp
     <div class="header-bottom sticky-bar">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{asset('assets/images/logo/logo.png') }}" alt="logo"></a>
+                        <a href="index.html"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
@@ -14,24 +17,26 @@
                             <ul>
                                 <li><a href="/">HOME</a>
                                 </li>
-                                <li><a href="{{route('shop')}}">SHOP</a>
+                                <li><a href="{{ route('shop') }}">SHOP</a>
                                     <ul class="mega-menu-style mega-menu-mrg-1">
                                         <li>
                                             <ul>
                                                 <li>
-                                                    <a class="dropdown-title" href="#">CATEGORY</a>
+                                                    <a class="dropdown-title" href="">CATEGORY</a>
                                                     <ul>
-
-                                                        <li><a href="shop.html">standard style</a></li>
-                                                     
+                                                        @foreach ($categorys as $item)
+                                                            <li><a
+                                                                    href="{{ route('shop.category', ['slugCate' => $item->slug]) }}">{{ $item->name }}</a>
+                                                            </li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-title" href="#">BRANDS</a>
                                                     <ul>
-                                                        
-                                                        <li><a href="product-details.html">tab style 1</a></li>
-                                                       
+                                                        @foreach ($brands as $item)
+                                                            <li><a href="">{{ $item->name }}</a></li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -72,20 +77,38 @@
                             </a>
                             <div class="search-wrap-1">
                                 <form action="">
-                                    <input name="search" placeholder="Search products…" type="text" value="{{request('search')}}">
+                                    <input name="search" placeholder="Search products…" type="text"
+                                        value="{{ request('search') }}">
                                     <button type="submit" class="button-search"><i class="pe-7s-search"></i></button>
                                 </form>
                             </div>
                         </div>
-                        <div class="header-action-style">
-                            <a title="Login Register" href="login-register.html"><i class="pe-7s-user"></i></a>
+                        <div class="main-menu header-action-style">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        @if (Auth::guard('customer')->check())
+                                        <a title="Login Register" href="#" style="pointer-events: none;"><i class="pe-7s-user"></i></a>
+                                        <ul class="sub-menu-style">
+                                            <li><a href="blog.html" style="font-size:15px ">Thông tin</a></li>
+                                            <li><a onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{route('customer.logout')}}" style="font-size:15px ">Đăng xuất</a></li>
+                                              <form id="logout-form" action="{{ route('customer.logout') }}" method="POST">
+                                                @csrf
+                                              </form>
+                                        </ul>
+                                        @else
+                                        <a title="Login Register" href="{{ route('customer.auth') }}"><i class="pe-7s-user"></i></a>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                         <div class="header-action-style">
                             <a title="Wishlist" href="wishlist.html"><i class="pe-7s-like"></i></a>
                         </div>
                         <div class="header-action-style header-action-cart">
                             <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
-                                <span class="product-count bg-black">{{Cart::count()}}</span>
+                                <span class="product-count bg-black cart-count">0</span>
                             </a>
                         </div>
                         <div class="header-action-style d-block d-lg-none">

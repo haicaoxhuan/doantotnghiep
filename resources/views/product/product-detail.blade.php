@@ -4,6 +4,9 @@
 @endsection
 
 @section('body')
+    @php
+    $request = request();
+    @endphp
     <div class="breadcrumb-area bg-gray-4 breadcrumb-padding-1">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -31,10 +34,10 @@
                         <div class="product-details-small-img-wrap">
                             <div class="swiper-container product-details-small-img-slider-1 pd-small-img-style">
                                 <div class="swiper-wrapper">
-                                    @foreach ($product->productImages as $item)
+                                    @foreach ($product->images as $item)
                                         <div class="swiper-slide">
                                             <div class="product-details-small-img">
-                                                <img src={{ asset($item->images) }} alt="Product Thumnail">
+                                                <img src={{ asset($item) }} alt="Product Thumnail">
                                             </div>
                                         </div>
                                     @endforeach
@@ -45,16 +48,15 @@
                         </div>
                         <div class="swiper-container product-details-big-img-slider-1 pd-big-img-style">
                             <div class="swiper-wrapper">
-                                @foreach ($product->productImages as $item)
+                                @foreach ($product->images as $item)
                                     <div class="swiper-slide">
                                         <div class="easyzoom-style">
                                             <div class="easyzoom easyzoom--overlay">
-                                                <a href={{ asset($item->images) }}>
-                                                    <img src={{ asset($item->images) }} alt="">
+                                                <a href={{ asset($item) }}>
+                                                    <img src={{ asset($item) }} alt="">
                                                 </a>
                                             </div>
-                                            <a class="easyzoom-pop-up img-popup"
-                                                href={{ asset($item->images) }}>
+                                            <a class="easyzoom-pop-up img-popup" href={{ asset($item) }}>
                                                 <i class="pe-7s-search"></i>
                                             </a>
                                         </div>
@@ -92,10 +94,17 @@
                         </div>
                         <div class="product-details-action-wrap">
                             <div class="product-quality">
-                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
+                                <input class="cart-plus-minus-box input-text qty text product_qty_{{$product->id}}" name="qtybutton" value="1">
                             </div>
                             <div class="single-product-cart btn-hover">
-                                <a href="{{route('add.cart',[ 'id' => $product->id])}}">Add to cart</a>
+                                <form action="">
+                                    <input type="hidden" value="{{ $product->id }}" class="product_id_{{ $product->id }}">
+                                    <input type="hidden" value="{{ $product->name }}" class="product_name_{{ $product->id }}">
+                                    <input type="hidden" value="{{ $product->price }}" class="product_price_{{ $product->id }}">
+                                    <input type="hidden" value="{{ $product->price_dc }}" class="product_price_dc_{{ $product->id }}">
+                                    <input type="hidden" value="{{ $product->images[0] }}" class="product_images_{{ $product->id }}">
+                                </form>
+                                <a data-id="{{$product->id}}" href="#" class="add-cart">Add to cart</a>
                             </div>
                             <div class="single-product-wishlist">
                                 <a title="Wishlist" href="wishlist.html"><i class="pe-7s-like"></i></a>
@@ -110,7 +119,7 @@
                                 <li><span class="title">Category:</span>
                                     <ul>
                                         @foreach ($category as $item)
-                                         <li><a href="#">{{ $item->category_name }}, </a></li>
+                                            <li><a href="#">{{ $item->category_name }}, </a></li>
                                         @endforeach
                                     </ul>
                                 </li>

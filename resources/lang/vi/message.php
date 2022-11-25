@@ -19,4 +19,12 @@ return [
     "create_product_successd" => 'Tạo sản phẩm thành công',
     'update_product_success' => 'Cập nhật sản phẩm thành công',
     'confirm_delete_product' => 'Bạn có muốn xóa sản phẩm này',
+
+    //customer
+    'create_customer_successd' => 'Đăng ký tài khoản thành công',
+    'create_customer_failed' => 'Đăng ký tài khoản không thành công',
+
+    //cart
+    'delete_item_cart_successd' => 'Xóa sản phẩm khỏi giỏ hàng thành công',
+    'clear_cart_successd' => 'Làm mới giỏ hàng thành công',
 ];
