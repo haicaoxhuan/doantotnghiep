@@ -25,10 +25,10 @@
         <h3><a href="{{ route('front.product', ['id' => $product->id]) }}">{{ $product->name }}</a></h3>
         <div class="product-price">
             @if ($product->price_dc != null)
-                <span class="old-price"> ${{ $product->price }} </span>
-                <span class="new-price"> ${{ $product->price_dc }} </span>
+                <span class="old-price"> {{ number_format($product->price) }}đ </span>
+                <span class="new-price"> {{ number_format($product->price_dc) }}đ </span>
             @else
-                <span> ${{ $product->price }} </span>
+                <span> {{ number_format($product->price) }}đ </span>
             @endif
         </div>
     </div>

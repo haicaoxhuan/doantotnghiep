@@ -153,13 +153,13 @@
                                             <ul>
                                                 @foreach ($carts as $cart)
                                                     <li>{{ $cart->name }} X {{ $cart->qty }}<span>
-                                                            ${{ $cart->price * $cart->qty }} </span></li>
+                                                            {{ $cart->price * $cart->qty }}đ </span></li>
                                                 @endforeach
                                             </ul>
                                         </div>
                                         <div class="your-order-info order-subtotal">
                                             <ul>
-                                                <li>Subtotal <span>${{ $subtotal }} </span></li>
+                                                <li>Subtotal <span>{{ $subtotal }}đ </span></li>
                                             </ul>
                                         </div>
                                         <div class="your-order-info order-shipping">
@@ -170,7 +170,7 @@
                                         </div>
                                         <div class="your-order-info order-total">
                                             <ul>
-                                                <li>Total <span>${{ $total }} </span></li>
+                                                <li>Total <span>{{ $total }}đ </span></li>
                                             </ul>
                                         </div>
                                     </div>

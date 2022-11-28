@@ -11,7 +11,7 @@
                     </div>
                     <div class="cart-title">
                         <h4><a href="{{route('front.product', ['id' => $cart->id])}}">{{$cart->name}}</a></h4>
-                        <span>{{$cart->qty}} x ${{number_format($cart->price, 2)}}	</span>
+                        <span>{{$cart->qty}} x {{number_format($cart->price)}}đ	</span>
                     </div>
                     <div class="cart-delete">
                         <a href="{{route('delete.cart', ['rowId' => $cart->rowId])}}">×</a>

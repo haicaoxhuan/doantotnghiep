@@ -53,14 +53,12 @@
                                                     <h5><a href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->product_name }}</a></h5>
                                                 </td>
                                                 <td class="product-cart-price"><span
-                                                        class="amount">${{ number_format($cart->price) }}</span></td>
+                                                        class="amount">{{ number_format($cart->price) }}đ</span></td>
                                                 <td class="cart-quality">
                                                     <div class="product-quality">
-                                                        <div class="dec qtybutton">-</div>
                                                         <input class="cart-plus-minus-box input-text qty text"
                                                             name="qtybutton" value="{{ $cart->quantity }}"
-                                                            data-rowid="{{ $cart->rowId }}" id="qtyCart">
-                                                        <div class="inc qtybutton">+</div>
+                                                            data-id="{{ $cart->cartDetailId }}" data-price="{{$cart->price}}" id="qtyCart">
                                                     </div>
                                                 </td>
                                                 @php
@@ -68,7 +66,7 @@
                                                     $sum += $subtotal;
                                                 @endphp
                                                 <td class="product-total">
-                                                    <span>${{ number_format($subtotal) }}</span>
+                                                    <span class="cart-pro-subtotal">{{ number_format($subtotal) }}đ</span>
                                                 </td>
                                                 <td class="product-remove"><a href="{{route('delete.cart', ['id' => $cart->cartDetailId])}}"><i class=" ti-trash "></i></a></td>
                                             </tr>
@@ -88,7 +86,6 @@
                                         <div class="cart-clear btn-hover">
                                         </div>
                                         <div class="cart-clear btn-hover">
-                                                {{-- <a href="">Clear Cart</a> --}}
                                                 <a href="{{ route('destroy.cart') }}">Clear Cart</a>
                                         </div>
                                     </div>
@@ -136,12 +133,12 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="grand-total-wrap">
                         <div class="grand-total-content">
-                            <h3>Subtotal <span>{{ $sum }}</span></h3>
+                            <h3 >Subtotal: <span class="sumCart">{{ number_format($sum) }}đ</span></h3>
                             <div class="grand-shipping">
                                 <span>Discount: <span></span></span>
                             </div>
                             <div class="grand-total">
-                                <h4>Total <span>{{ $sum }}</span></h4>
+                                <h4>Total <span>{{ $sum }}đ</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">

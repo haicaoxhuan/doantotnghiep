@@ -38,13 +38,14 @@ Route::post('cart/address', [CheckoutController::class, 'address'])->name('check
 Route::post('cart/checkout', [CheckoutController::class, 'addOrder'])->name('checkout.addorder');
 
 //customer
+Route::prefix('customer')->group(function () {
+    Route::get('/login', [CustomerController::class, 'auth'])->name('customer.auth');
+    Route::post('/login', [CustomerController::class, 'login'])->name('customer.login');
+    Route::post('/logout', [CustomerController::class, 'logout'])->name('customer.logout');
+    Route::post('/register', [CustomerController::class, 'register'])->name('customer.register');
+});
 Route::middleware(['customer'])->group(function () {
-    Route::prefix('customer')->group(function () {
-        Route::get('/login', [CustomerController::class, 'auth'])->name('customer.auth');
-        Route::post('/login', [CustomerController::class, 'login'])->name('customer.login');
-        Route::post('/logout', [CustomerController::class, 'logout'])->name('customer.logout');
-        Route::post('/register', [CustomerController::class, 'register'])->name('customer.register');
-    });
+
     //regis
     Route::get('/success', [CustomerController::class, 'registersucces'])->name('customer.registersucces');
     //cart

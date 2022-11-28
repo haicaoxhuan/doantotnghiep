@@ -71,10 +71,10 @@
                         <h2>{{ $product->name }}</h2>
                         <div class="product-details-price">
                             @if ($product->price_dc != null)
-                                <span class="old-price"> ${{ $product->price }} </span>
-                                <span class="new-price"> ${{ $product->price_dc }} </span>
+                                <span class="old-price"> {{ number_format($product->price)}}đ </span>
+                                <span class="new-price"> {{ number_format($product->price_dc) }}đ </span>
                             @else
-                                <span style="font-size: 20px"> ${{ $product->price }} </span>
+                                <span style="font-size: 20px"> {{ number_format($product->price) }}đ </span>
                             @endif
                         </div>
                         <div class="product-details-review">

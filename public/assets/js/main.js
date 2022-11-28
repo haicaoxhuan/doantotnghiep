@@ -268,28 +268,35 @@
         }
         $button.parent().find("input").val(newVal);
 
-        const rowId = $button.parent().find("input").data("rowid");
-        updatedCart(rowId, newVal);
+        updatedCart($(this).closest('.cart-quality'));
     });
 
-    // $(".text").on("blur", function () {
-    //     const rowId = $(this).parent().find("input").data("rowid");
-    //     const qty = $(this).parent().find("input").val();
-    //     updatedCart(rowId, qty);
-    // });
-
-    function updatedCart(rowId, qty) {
+    function updatedCart(item) {
+        var cart_qty = item.find(".qty").val();
+        var cart_pro_id = item.find(".qty").data("id");
+        var car_pro_price = item.find(".qty").data("price");
         $.ajax({
             type: "GET",
             url: "cart/update",
-            data: { rowId: rowId, qty: qty },
+            data: { id: cart_pro_id, qty: cart_qty, price: car_pro_price },
             success: function (response) {
-                location.reload();
+                item.closest('tr').find('.cart-pro-subtotal').html(formatMoney(response.subtotal) + "đ");
+                var products = document.querySelectorAll(".cart-pro-subtotal");
+                var sum = 0;
+                $.each(products, function(index, value){
+                    sum +=Number(value.innerHTML.replace(/\D/g, ""));
+                })
+                $('.sumCart').html(formatMoney(sum) +"đ");
             },
             error: function (error) {
-                alert("Update failed");
             },
         });
+    }
+    function formatMoney(n) {
+        if(n==0){
+            return "";
+        }
+        return n.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     /*------ ScrollUp -------- */
@@ -714,7 +721,7 @@
         var product_price_dc = $(".product_price_dc_" + id).val();
         var product_price = $(".product_price_" + id).val();
         var product_images = $(".product_images_" + id).val();
-        var product_qty = $('.product_qty_'+id).val();
+        var product_qty = $(".product_qty_" + id).val();
 
         $.ajax({
             type: "POST",
@@ -749,7 +756,4 @@
         //     },
         // });
     });
-
-    
-    
 })(jQuery);

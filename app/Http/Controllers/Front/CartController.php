@@ -161,10 +161,17 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
-        if($request->ajax()){
-           
+        if ($request->ajax()) {
+            $proCart = CartDetail::find($request->id);
+            $param = [
+                'quantity' => $request->qty,
+                'subtotal' => $request->price * $request->qty,
+            ];
+            $proCart->update($param);
+            $quantity = $proCart->quantity;
+            $subtotal = $proCart->subtotal;
         }
-        
-        return response($data);
+
+        return response()->json(['quantity' => $quantity, 'subtotal'=> $subtotal]);
     }
 }
