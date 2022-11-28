@@ -18,6 +18,9 @@ return [
     'slug' => 'Slug',
     'edit' => 'Sửa',
     'upload_img' => 'Tải ảnh',
+    'started_at' => 'Ngày bắt đầu',
+    'ended_at' => 'Ngày kết thúc',
+    'status' => 'Trạng thái',
 
     //brand
     'brand' => 'Thương hiệu',
@@ -44,4 +47,15 @@ return [
     'edit_pro' => 'Sửa sản phẩm',
     'pro_des' => 'Mô tả',
     'pro_sort_des' => 'Mô tả ngắn',
+
+    //coupon
+    'coupon' => 'Mã giảm giá',
+    'coupon_name' => 'Tên mã giảm giá',
+    'coupon_code' => 'Mã giảm giá',
+    'quantity' => 'Số lượng',
+    'edit_coupon' => 'Sửa mã giảm giá',
+    'create_coupon' => 'Thêm mã giảm giá',
+    'value' => 'Giá trị', 
+    'valuable' => 'Còn giá trị',
+    'off_value' => 'Hết giá trị',
 ];

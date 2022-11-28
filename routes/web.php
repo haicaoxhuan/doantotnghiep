@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoriesController;
+use App\Http\Controllers\Backend\CounponController;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Front\CartController;
@@ -89,5 +90,10 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/product/upload', [BackendProductController::class, 'uploadFile'])->name('admin.product.upload');
         Route::get('/product/remove', [BackendProductController::class, 'remove'])->name('admin.product.remove');
+
+        //coupon
+        Route::get('/coupon', [CounponController::class, 'index'])->name('admin.coupon.index');
+        Route::get('/coupon/create', [CounponController::class, 'create'])->name('admin.coupon.create');
+        Route::post('/coupon/store', [CounponController::class, 'store'])->name('admin.coupon.store');
     });
 });

@@ -71,18 +71,31 @@
                 </li>
             </ul>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-            data-accordion="false">
-            {{-- Product --}}
-            <li class="nav-item">
-                <a href="{{ route('admin.product.index') }}" class="nav-link">
-                    <i class="nav-icon fa fa-flag"></i>
-                    <p>
-                        Sản phẩm
-                    </p>
-                </a>
+                data-accordion="false">
+                {{-- Product --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.product.index') }}" class="nav-link">
+                        <i class="nav-icon fa fa-flag"></i>
+                        <p>
+                            Sản phẩm
+                        </p>
+                    </a>
 
-            </li>
-        </ul>
+                </li>
+            </ul>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
+                {{-- Coupon --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.coupon.index') }}" class="nav-link">
+                        <i class="nav-icon fa fa-flag"></i>
+                        <p>
+                            Mã giảm giá
+                        </p>
+                    </a>
+
+                </li>
+            </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
