@@ -268,7 +268,10 @@
         }
         $button.parent().find("input").val(newVal);
 
-        updatedCart($(this).closest('.cart-quality'));
+        updatedCart($(this).closest(".cart-quality"));
+        if ($('input[name="coupon_code"]').val().length) {
+            addCoupon();
+        }
     });
 
     function updatedCart(item) {
@@ -280,24 +283,66 @@
             url: "cart/update",
             data: { id: cart_pro_id, qty: cart_qty, price: car_pro_price },
             success: function (response) {
-                item.closest('tr').find('.cart-pro-subtotal').html(formatMoney(response.subtotal) + "đ");
+                item.closest("tr")
+                    .find(".cart-pro-subtotal")
+                    .html(formatMoney(response.subtotal) + "đ");
                 var products = document.querySelectorAll(".cart-pro-subtotal");
                 var sum = 0;
-                $.each(products, function(index, value){
-                    sum +=Number(value.innerHTML.replace(/\D/g, ""));
-                })
-                $('.sumCart').html(formatMoney(sum) +"đ");
+                $.each(products, function (index, value) {
+                    sum += Number(value.innerHTML.replace(/\D/g, ""));
+                });
+                $(".sumCart").html(formatMoney(sum) + "đ");
+                if ($('input[name="coupon_code"]').val().length == 0) {
+                    $(".total-coupon").html(formatMoney(sum) + "đ");
+                }
             },
-            error: function (error) {
+            error: function (error) {},
+        });
+    }
+
+    function formatMoney(n) {
+        if (n == 0) {
+            return "";
+        }
+        return n
+            .toString()
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    $(".add-coupon").on("click", function () {
+        addCoupon();
+    });
+
+    function addCoupon() {
+        var coupon = $('input[name="coupon_code"]').val();
+        $.ajax({
+            type: "POST",
+            headers: {
+                "X-CSRF-Token": $('input[name="_token"]').val(),
+            },
+            url: "/add-coupon",
+            data: {
+                coupon: coupon,
+            },
+            success: function (response) {
+                var value_code = document.querySelector(".sumCart");
+                var value = Number(value_code.innerHTML.replace(/\D/g, ""));
+                if (response.status === 200) {
+                    var value_coupon = value * Number(response.data / 100);
+                    var total = value * Number((100 - response.data) / 100);
+                    $(".value-coupon").html(formatMoney(value_coupon) + "đ");
+                    $(".total-coupon").html(formatMoney(total) + "đ");
+                } else {
+                    $(".value-coupon").html("");
+                    $(".total-coupon").html(formatMoney(value) + "đ");
+                    toastr.error(response.msg.text, { timeOut: 5000 });
+                }
             },
         });
     }
-    function formatMoney(n) {
-        if(n==0){
-            return "";
-        }
-        return n.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+
+    /*------ end cart -------- */
 
     /*------ ScrollUp -------- */
     $.scrollUp({
@@ -737,23 +782,20 @@
                 images: product_images,
                 quantity: product_qty,
             },
-            success: function (data) {
-                if (data.status === 200) {
-                    toastr.success(data.msg.text, { timeOut: 5000 });
+            success: function (response) {
+                if (response.status === 200) {
+                    toastr.success(response.msg.text, { timeOut: 5000 });
+                    console.log(response);
+                    $(".mini-cart").html(response.data);
+                    var products =  document.querySelectorAll(".cart-pro-subtotal");
+                    var sum = 0;
+                    $.each(products, function (index, value) {
+                        sum += Number(value.innerHTML.replace(/\D/g, ""));
+                    });
                 } else {
-                    toastr.error(data.msg.title, { timeOut: 5000 });
+                    toastr.error(response.msg.title, { timeOut: 5000 });
                 }
             },
         });
-
-        // $.ajax({
-        //     type: "GET",
-        //     url: "/cart/loadcart",
-        //     success: function (response) {
-        //         console.log(response.count);
-        //         $(".cart-count").html("");
-        //         $(".cart-count").html(response.count);
-        //     },
-        // });
     });
 })(jQuery);

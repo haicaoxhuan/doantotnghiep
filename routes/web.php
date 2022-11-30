@@ -11,8 +11,11 @@ use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\ShopController;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View as ViewView;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +47,7 @@ Route::prefix('customer')->group(function () {
     Route::post('/login', [CustomerController::class, 'login'])->name('customer.login');
     Route::post('/logout', [CustomerController::class, 'logout'])->name('customer.logout');
     Route::post('/register', [CustomerController::class, 'register'])->name('customer.register');
+    Route::get('/register', [CustomerController::class, 'viewRegister'])->name('customer.viewRegister');
 });
 Route::middleware(['customer'])->group(function () {
 
@@ -52,10 +56,12 @@ Route::middleware(['customer'])->group(function () {
     //cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('/cart/add', [CartController::class, 'add'])->name('add.cart');
-    Route::get('cart/delete/{id}', [CartController::class, 'delete'])->name('delete.cart');
+    Route::delete('cart/delete/{id}', [CartController::class, 'delete'])->name('delete.cart');
     Route::get('cart/destroy', [CartController::class, 'destroy'])->name('destroy.cart');
     Route::get('/cart/update', [CartController::class, 'update'])->name('update.cart');
     Route::get('/cart/loadcart', [CartController::class, 'loadcart'])->name('loadcart.cart');
+    Route::post('/add-coupon', [CartController::class, 'coupon'])->name('add.coupon');
+    Route::post('/mini-cart', [CartController::class, 'miniCart'])->name('mini.cart');
 });
 //admin
 Route::prefix('admin')->group(function () {
@@ -95,5 +101,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/coupon', [CounponController::class, 'index'])->name('admin.coupon.index');
         Route::get('/coupon/create', [CounponController::class, 'create'])->name('admin.coupon.create');
         Route::post('/coupon/store', [CounponController::class, 'store'])->name('admin.coupon.store');
+        Route::get('/coupon/edit/{id}', [CounponController::class, 'edit'])->name('admin.coupon.edit');
+        Route::post('/coupon/update/{id}', [CounponController::class, 'update'])->name('admin.coupon.update');
+        Route::delete('/coupon/delete/{id}', [CounponController::class, 'destroy'])->name('admin.coupon.destroy');
     });
 });

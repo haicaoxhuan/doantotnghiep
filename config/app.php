@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\AdminServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
 
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,

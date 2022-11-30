@@ -53,7 +53,6 @@ $(function() {
     }),
 
     $(document).on("click", ".delete", function() {
-        console.log(1);
         var $ele = $(this).parent().parent().parent();
         console.log($ele);
         var file_name = $(this).closest('.file-row').find('input').val();

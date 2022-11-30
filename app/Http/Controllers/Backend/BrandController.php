@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
@@ -42,7 +43,7 @@ class BrandController extends Controller
         return view('admin.brand.create');
     }
 
-    public function store(Request $request)
+    public function store(BrandRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -74,7 +75,7 @@ class BrandController extends Controller
         return view('admin.brand.edit', compact('brand'));
     }
 
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, $id)
     {
         try {
             $brand = $this->brand->find($id);

@@ -27,29 +27,42 @@
                     <!-- general form elements -->
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">{{Route::is('admin.product.create') ? trans('language.create_pro') :  trans('language.edit_pro')}}</h3>
+                            <h3 class="card-title">
+                                {{ Route::is('admin.product.create') ? trans('language.create_pro') : trans('language.edit_pro') }}
+                            </h3>
                         </div>
-                        <form method="{{$method}}" action="{{$action}}" enctype="multipart/form-data">
+                        <form method="{{ $method }}" action="{{ $action }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">{{ trans('language.product_name') }}:</label>
-                                    <input type="text" class="form-control" id="slug" placeholder="Nhập tên sản phẩm" name="name"
-                                    value="{{old('name') ? old('name') : (isset($product->name) ? $product->name : '')}}">
+                                    <input type="text" class="form-control" id="slug"
+                                        placeholder="Nhập tên sản phẩm" name="name"
+                                        value="{{ old('name') ? old('name') : (isset($product->name) ? $product->name : '') }}">
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="flex-bw">
                                     <div class="pdl">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">{{ trans('language.price') }}:</label>
                                             <input type="text" class="form-control" placeholder="Nhập giá" name="price"
-                                            value="{{old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}">
+                                                value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '') }}">
+                                            @error('price')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="pdl">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">{{ trans('language.price_dc') }}:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập giá đã giảm" name="price_dc"
-                                            value="{{old('price_dc') ? old('price_dc') : (isset($product->price_dc) ? $product->price_dc : '')}}">
+                                            <input type="text" class="form-control" placeholder="Nhập giá đã giảm"
+                                                name="price_dc"
+                                                value="{{ old('price_dc') ? old('price_dc') : (isset($product->price_dc) ? $product->price_dc : '') }}">
+                                            @error('price_dc')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -57,15 +70,22 @@
                                     <div class="pdl">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">{{ trans('language.qty') }}:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập số lượng" name="qty"
-                                            value="{{old('qty') ? old('qty') : (isset($product->quantity) ? $product->quantity : '')}}">
+                                            <input type="text" class="form-control" placeholder="Nhập số lượng"
+                                                name="qty"
+                                                value="{{ old('qty') ? old('qty') : (isset($product->quantity) ? $product->quantity : '') }}">
+                                            @error('qty')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="pdl">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">{{ trans('language.sku') }}:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập SKU" name="sku" 
-                                            value="{{old('sku') ? old('sku') : (isset($product->sku) ? $product->sku : '')}}">
+                                            <input type="text" class="form-control" placeholder="Nhập SKU" name="sku"
+                                                value="{{ old('sku') ? old('sku') : (isset($product->sku) ? $product->sku : '') }}">
+                                            @error('sku')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -78,33 +98,49 @@
                                                     $choose_brand = old('brand_id') ? old('brand_id') : (isset($product->brand_id) ? $product->brand_id : '');
                                                 @endphp
                                                 @foreach ($brands as $brand)
-                                                    <option @if ($choose_brand == $brand->id) selected  @endif 
-                                                    value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                    <option @if ($choose_brand == $brand->id) selected @endif
+                                                        value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('brand_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="pdl">
                                         <div class="form-group">
                                             <label>{{ trans('language.cate') }}</label>
                                             @php
-                                           $item = old('category') ? collect(old('category')) : ( isset($proCates) && isset($product) ? $proCates : collect())
+                                                $item = old('category') ? collect(old('category')) : (isset($proCates) && isset($product) ? $proCates : collect());
                                             @endphp
-                                            <select class="select2bs4" multiple="multiple" data-placeholder="Chọn danh mục sản phẩm" style="width: 100%;" name="category[]">
+                                            <select class="select2bs4" multiple="multiple"
+                                                data-placeholder="Chọn danh mục sản phẩm" style="width: 100%;"
+                                                name="category[]">
                                                 @foreach ($categories as $category)
-                                                    <option value={{ $category->id }} {{ ($item->contains($category->id)) ? 'selected':'' }}>{{ $category->name }}</option>
+                                                    <option value={{ $category->id }}
+                                                        {{ $item->contains($category->id) ? 'selected' : '' }}>
+                                                        {{ $category->name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group area">
                                     <label for="exampleInputEmail1">{{ trans('language.pro_des') }}:</label>
-                                    <textarea name="des" id="" >{{old('des') ? old('des') : (isset($product->description) ? $product->description : '')}}</textarea>
+                                    <textarea name="des" id="">{{ old('des') ? old('des') : (isset($product->description) ? $product->description : '') }}</textarea>
+                                    @error('des')
+                                            <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group area">
                                     <label for="exampleInputEmail1">{{ trans('language.pro_sort_des') }}:</label>
-                                    <textarea name="sort_des" id="">{{old('sort_des') ? old('sort_des') : (isset($product->short_des) ? $product->short_des : '')}}</textarea>
+                                    <textarea name="sort_des" id="">{{ old('sort_des') ? old('sort_des') : (isset($product->short_des) ? $product->short_des : '') }}</textarea>
+                                    @error('sort_des')
+                                            <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">{{ trans('language.image') }}:</label>
@@ -150,43 +186,47 @@
                                         </div>
                                     </div>
                                     @if (isset($product) && $product->images)
-                                    @foreach ($product->images as $item)
-                                    <div class="table table-striped files">
-                                        <div  class="row mt-2 file-row">
-                                            <div class="col-auto">
-                                                <span class="preview"><img src="{{asset($item)}}" alt="" data-dz-thumbnail/></span>
-                                            </div>
-                                            <div class="col d-flex align-items-center">
-                                                <p class="mb-0">
-                                                    
-                                                </p>
-                                                <strong class="error text-danger" data-dz-errormessage></strong>
-                                            </div>
-                                            <div class="col-4 d-flex align-items-center">
-                                                <div class="progress progress-striped active w-100" role="progressbar"
-                                                    aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                    <div class="progress-bar progress-bar-success" style="width:0%;"
-                                                        data-dz-uploadprogress></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-auto d-flex align-items-center">
-                                                <div class="btn-group">
-                                                    <div class="btn btn-danger delete xxxccc">
-                                                        <i class="fas fa-trash"></i>
-                                                        <span>{{ trans('language.delete') }}</span>
+                                        @foreach ($product->images as $item)
+                                            <div class="table table-striped files">
+                                                <div class="row mt-2 file-row">
+                                                    <div class="col-auto">
+                                                        <span class="preview"><img src="{{ asset($item) }}"
+                                                                alt="" data-dz-thumbnail /></span>
                                                     </div>
+                                                    <div class="col d-flex align-items-center">
+                                                        <p class="mb-0">
+
+                                                        </p>
+                                                        <strong class="error text-danger" data-dz-errormessage></strong>
+                                                    </div>
+                                                    <div class="col-4 d-flex align-items-center">
+                                                        <div class="progress progress-striped active w-100"
+                                                            role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                                            aria-valuenow="0">
+                                                            <div class="progress-bar progress-bar-success"
+                                                                style="width:0%;" data-dz-uploadprogress></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto d-flex align-items-center">
+                                                        <div class="btn-group">
+                                                            <div class="btn btn-danger delete xxxccc">
+                                                                <i class="fas fa-trash"></i>
+                                                                <span>{{ trans('language.delete') }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="{{ $item }}"
+                                                        name="productImg[]">
                                                 </div>
                                             </div>
-                                            <input type="hidden" value="{{$item}}" name="productImg[]">
-                                        </div>
-                                    </div>
-                                    @endforeach
+                                        @endforeach
                                     @endif
                                 </div>
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{Route::is('admin.product.create') ? trans('language.create') : trans('language.update')}}</button>
+                                <button type="submit"
+                                    class="btn btn-primary">{{ Route::is('admin.product.create') ? trans('language.create') : trans('language.update') }}</button>
                             </div>
                         </form>
                     </div>

@@ -28,10 +28,10 @@
                 <div class="col-lg-8 col-md-12 offset-lg-2">
                     <div class="login-register-wrapper">
                         <div class="login-register-tab-list nav">
-                            <a class="active" data-bs-toggle="tab" href="#lg1">
+                            <a class="active"  href="{{route('customer.auth')}}">
                                 <h4> login </h4>
                             </a>
-                            <a data-bs-toggle="tab" href="#lg2">
+                            <a  href="{{route('customer.viewRegister')}}">
                                 <h4> register </h4>
                             </a>
                         </div>
@@ -47,7 +47,13 @@
                                         <form action="{{ route('customer.login') }}" method="post">
                                             @csrf
                                             <input type="text" name="email" placeholder="Email">
+                                            @error('email')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                             <input type="password" name="password" placeholder="Password">
+                                            @error('password')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox">
                                                 <label>Remember me</label>
@@ -55,21 +61,6 @@
                                             </div>
                                             <div class="button-box btn-hover">
                                                 <button type="submit">Login</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="lg2" class="tab-pane">
-                                <div class="login-form-container">
-                                    <div class="login-register-form">
-                                        <form action="{{route('customer.register')}}" method="post">
-                                            @csrf
-                                            <input type="text" name="cusname" placeholder="Name">
-                                            <input type="email" name="cusemail" placeholder="Email" >
-                                            <input type="password" name="cuspassword" placeholder="Password">
-                                            <div class="button-box btn-hover">
-                                                <button type="submit">Register</button>
                                             </div>
                                         </form>
                                     </div>

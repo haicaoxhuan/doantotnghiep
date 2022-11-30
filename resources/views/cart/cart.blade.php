@@ -47,10 +47,13 @@
                                         @foreach ($carts as $cart)
                                             <tr>
                                                 <td class="product-thumbnail">
-                                                    <a href="{{ route('front.product', ['id' => $cart->id]) }}"><img src="{{ asset($cart->images) }}" alt=""></a>
+                                                    <a href="{{ route('front.product', ['id' => $cart->id]) }}"><img
+                                                            src="{{ asset($cart->images) }}" alt=""></a>
                                                 </td>
                                                 <td class="product-name">
-                                                    <h5><a href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->product_name }}</a></h5>
+                                                    <h5><a
+                                                            href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->product_name }}</a>
+                                                    </h5>
                                                 </td>
                                                 <td class="product-cart-price"><span
                                                         class="amount">{{ number_format($cart->price) }}đ</span></td>
@@ -58,7 +61,8 @@
                                                     <div class="product-quality">
                                                         <input class="cart-plus-minus-box input-text qty text"
                                                             name="qtybutton" value="{{ $cart->quantity }}"
-                                                            data-id="{{ $cart->cartDetailId }}" data-price="{{$cart->price}}" id="qtyCart">
+                                                            data-id="{{ $cart->cartDetailId }}"
+                                                            data-price="{{ $cart->price }}" id="qtyCart">
                                                     </div>
                                                 </td>
                                                 @php
@@ -68,7 +72,9 @@
                                                 <td class="product-total">
                                                     <span class="cart-pro-subtotal">{{ number_format($subtotal) }}đ</span>
                                                 </td>
-                                                <td class="product-remove"><a href="{{route('delete.cart', ['id' => $cart->cartDetailId])}}"><i class=" ti-trash "></i></a></td>
+                                                <td class="product-remove"><a
+                                                        href="{{ route('delete.cart', ['id' => $cart->cartDetailId]) }}"><i
+                                                            class=" ti-trash "></i></a></td>
                                             </tr>
                                         @endforeach
 
@@ -86,7 +92,7 @@
                                         <div class="cart-clear btn-hover">
                                         </div>
                                         <div class="cart-clear btn-hover">
-                                                <a href="{{ route('destroy.cart') }}">Clear Cart</a>
+                                            <a href="{{ route('destroy.cart') }}">Clear Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -101,17 +107,17 @@
                         <h4></h4>
                         <div class="calculate-discount-content">
                             <div class="select-style mb-15">
-                                
+
                             </div>
                             <div class="select-style mb-15">
-                                
+
                             </div>
                             <div class="input-style">
                             </div>
                             <div class="input-style">
                             </div>
                             <div class="calculate-discount-btn btn-hover">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -122,10 +128,10 @@
                         <div class="calculate-discount-content">
                             <p>Enter your coupon code if you have one.</p>
                             <div class="input-style">
-                                <input type="text" placeholder="Coupon code">
+                                <input type="text" placeholder="Coupon code" name="coupon_code">
                             </div>
                             <div class="calculate-discount-btn btn-hover">
-                                <a class="btn theme-color" href="#">Apply Coupon</a>
+                                <a class="btn theme-color add-coupon">Apply Coupon</a>
                             </div>
                         </div>
                     </div>
@@ -133,16 +139,19 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="grand-total-wrap">
                         <div class="grand-total-content">
-                            <h3 >Subtotal: <span class="sumCart">{{ number_format($sum) }}đ</span></h3>
+                            <h3>Subtotal: <span class="sumCart">{{ number_format($sum) }}đ</span></h3>
                             <div class="grand-shipping">
-                                <span>Discount: <span></span></span>
+                                <span
+                                    style="display: flex;
+                                justify-content: space-between;">Discount:
+                                    <span class="value-coupon">0đ</span></span>
                             </div>
                             <div class="grand-total">
-                                <h4>Total <span>{{ $sum }}đ</span></h4>
+                                <h4>Total <span class="total-coupon">{{ number_format($sum) }}đ</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">
-                            <a class="btn theme-color" href="{{route('checkout')}}">Proceed to checkout</a>
+                            <a class="btn theme-color" href="{{ route('checkout') }}">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
@@ -153,4 +162,5 @@
 
 @section('addjs')
     <script src="{{ asset('assets/js/price.min.js') }}"></script>
+    
 @endsection

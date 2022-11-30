@@ -3,23 +3,7 @@
         <a class="cart-close" ><i class="pe-7s-close"></i></a>
         <div class="cart-content">
             <h3>Shopping Cart</h3>
-            <ul>
-                @foreach (Cart::content() as $cart)
-                <li>
-                    <div class="cart-img">
-                        <a href="{{route('front.product', ['id' => $cart->id])}}"><img src="{{ asset($cart->options->images) }}" alt=""></a>
-                    </div>
-                    <div class="cart-title">
-                        <h4><a href="{{route('front.product', ['id' => $cart->id])}}">{{$cart->name}}</a></h4>
-                        <span>{{$cart->qty}} x {{number_format($cart->price)}}đ	</span>
-                    </div>
-                    <div class="cart-delete">
-                        <a href="{{route('delete.cart', ['rowId' => $cart->rowId])}}">×</a>
-                    </div>
-                </li>
-                @endforeach
-                
-            </ul>
+            @include('partials.mini-cart')
             <div class="cart-total">
                 <h4>Subtotal: <span>{{Cart::subtotal()}}</span></h4>
             </div>

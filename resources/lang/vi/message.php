@@ -31,4 +31,7 @@ return [
     //coupon
     'create_coupon_successd' => 'Thêm mã giảm giá thành công',
     'update_product_success' => 'Sửa mã giảm giá thành công',
+    'confirm_delete_coupon' => 'Bạn có muốn xóa mã giảm giá này',
+    'no_coupon' => 'Không có mã giảm giá hoặc mã đã hết giá trị',
+
 ];

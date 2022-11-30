@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoriesRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,7 +43,7 @@ class CategoriesController extends Controller
         return view('admin.category.create');
     }
 
-    public function store(Request $request)
+    public function store(CategoriesRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -74,7 +75,7 @@ class CategoriesController extends Controller
         return view('admin.category.edit', compact('categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoriesRequest $request, $id)
     {
         try {
             $category = $this->category->find($id);

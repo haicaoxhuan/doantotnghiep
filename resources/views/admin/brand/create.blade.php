@@ -31,10 +31,16 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">{{trans('language.brand_name')}}</label>
                                     <input type="text" class="form-control" id="slug" placeholder="Nhập tên thương hiệu" name="name">
+                                    @if ($errors->first('name'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('name') }}</div>
+                                @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">{{trans('language.slug')}}</label>
                                     <input type="text" class="form-control" id="convert_slug"  placeholder="Nhập slug" name="slug">
+                                    @error('name')
+                                            <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">{{trans('language.image')}}</label>
@@ -44,6 +50,9 @@
                                             <label class="custom-file-label" for="exampleInputFile">{{trans('language.choose_img')}}</label>
                                         </div>
                                     </div>
+                                    {{-- @error('image')
+                                        <div class="text-danger">{{$message}}</div>
+                                    @enderror --}}
                                     <img class="img-pr" id="img_brand" src="" alt="your image" onerror="this.onerror=null;this.src='{{ asset('images/preview.png') }}';">
                                 </div>
                             </div>

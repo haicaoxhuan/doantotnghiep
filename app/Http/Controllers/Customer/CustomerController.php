@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerLoginRequest;
+use App\Http\Requests\CustomerRegisterRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +45,12 @@ class CustomerController extends Controller
         return redirect()->route('customer.auth');
     }
 
-    public function register(Request $request)
+    public function viewRegister()
+    {
+        return view('customer.partials.register');
+    }
+
+    public function register(CustomerRegisterRequest $request)
     {
         try{
             DB::beginTransaction();

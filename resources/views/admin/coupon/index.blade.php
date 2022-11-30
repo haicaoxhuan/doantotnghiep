@@ -3,7 +3,6 @@
 @section('addcssadmin')
 
 @endsection
-
 @section('bodyadmin')
     <section class="content-header">
         <div class="container-fluid">
@@ -58,18 +57,18 @@
                                         <td class="text-center">{{date('H:i d/m/Y', strtotime($coupon->started_at)) }}</td>
                                         <td class="text-center">{{date('H:i d/m/Y', strtotime($coupon->ended_at))}}</td>
                                         <td class="text-center">{!! \App\Models\Coupon::checkStatus($coupon->status) !!}</td>
-                                        {{-- <td class="text-center">
-                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.product.edit', ['id' => $product->id]) }}"><i class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
-                                            @if($product->deleted_at  == null)
-                                            <a class="btn btn-danger btn-sm rounded-0 deleteTable" href="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
-                                                data-id="{{$product->id}}"
-                                                data-title="{{trans('message.confirm_delete_product')}}" 
-                                                data-text="<span >{{$product->name}}</span>" 
-                                                data-url="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
+                                        <td class="text-center">
+                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.coupon.edit', ['id' => $coupon->id]) }}"><i class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
+                                            @if($coupon->deleted_at  == null)
+                                            <a class="btn btn-danger btn-sm rounded-0 deleteTable" href="{{ route('admin.coupon.destroy', ['id' => $coupon->id]) }}"
+                                                data-id="{{$coupon->id}}"
+                                                data-title="{{trans('message.confirm_delete_coupon')}}" 
+                                                data-text="<span >{{$coupon->name}}</span>" 
+                                                data-url="{{ route('admin.coupon.destroy', ['id' => $coupon->id]) }}"
                                                 data-method="DELETE" data-icon="question">
                                                 <i class="fa fa-trash pad"></i>{{ trans('language.delete') }}</a>
                                             @endif
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

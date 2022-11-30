@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart as ModelsCart;
 use App\Models\Cart;
 use App\Models\CartDetail;
+use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 // use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -19,8 +21,6 @@ use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
-    private $carts;
-
     public function __construct(Cart $carts)
     {
         $this->cart = $carts;
@@ -49,33 +49,45 @@ class CartController extends Controller
         return view('cart.cart', compact('carts'));
     }
 
+    public function getCart()
+    {
+        $custId = Auth::guard('customer')->id();
+        $carts = Cart::select(
+            'cart.*',
+            'cart_detail.id as cartDetailId',
+            'cart_detail.cart_id',
+            'cart_detail.product_id',
+            'cart_detail.quantity',
+            'cart_detail.price',
+            'cart_detail.images',
+            'products.name as product_name',
+            'customers.id as customerId',
+        )
+            ->leftjoin('cart_detail', 'cart.id', 'cart_detail.cart_id')
+            ->leftjoin('products', 'products.id', 'cart_detail.product_id')
+            ->leftjoin('customers', 'customers.id', 'cart.customer_id')
+            ->where('customers.id', $custId)
+            ->get();
+
+        return $carts;
+    }
+
     public function add(Request $request)
     {
         try {
             if ($request->ajax()) {
                 DB::beginTransaction();
                 $custId = Auth::guard('customer')->id();
-
-                $cart = Cart::select(
-                    'cart.*',
-                    'cart_detail.product_id',
-                    'cart_detail.id as cartDetailId',
-                    'cart_detail.quantity',
-                )->leftjoin('cart_detail', 'cart.id', 'cart_detail.cart_id')
-                    ->where('cart.customer_id', $custId)->get();
-
-                if (count($cart) != 0) {
-                    foreach ($cart as $item) {
-                        if ($item->product_id == $request->id) {
-                            $cartDetail = CartDetail::find($item->cartDetailId);
-                            $cartDetail->quantity = $item->quantity + 1;
-                            $cartDetail->subtotal = $cartDetail->price * $cartDetail->quantity;
-                            $cartDetail->save();
-                        }
-                    }
-                    if ($item->product_id != $request->id) {
+                $cart = Cart::select('cart.id')->where('cart.customer_id', $custId)->first();
+                if ($cart) {
+                    $cartDetail = CartDetail::where('cart_id', $cart->id)->where('product_id', $request->id)->first();
+                    if ($cartDetail) {
+                        $cartDetail->quantity = $cartDetail->quantity + 1;
+                        $cartDetail->subtotal = $cartDetail->price * $cartDetail->quantity;
+                        $cartDetail->save();
+                    } else {
                         $cartDetail = new CartDetail;
-                        $cartDetail->cart_id = $item->id;
+                        $cartDetail->cart_id = $cart->id;
                         $cartDetail->product_id = $request->id;
                         $cartDetail->price = $request->price_dc ?? $request->price;
                         $cartDetail->quantity = $request->quantity ?? 1;
@@ -84,7 +96,6 @@ class CartController extends Controller
                         $cartDetail->save();
                     }
                 } else {
-
                     $param = ['customer_id' => $custId];
                     $newCart = $this->cart->create($param);
 
@@ -97,13 +108,14 @@ class CartController extends Controller
                     $cartDetail->subtotal = $cartDetail->price * $cartDetail->quantity;
                     $cartDetail->save();
                 }
-
+                $html = view('partials.mini-cart')->render();
                 DB::commit();
                 return [
                     'status' => Response::HTTP_OK,
                     'msg' => [
                         'text' => trans('message.success'),
                     ],
+                    'data' => $html
                 ];
             }
         } catch (\Exception $e) {
@@ -172,6 +184,26 @@ class CartController extends Controller
             $subtotal = $proCart->subtotal;
         }
 
-        return response()->json(['quantity' => $quantity, 'subtotal'=> $subtotal]);
-    }
+        return response()->json(['quantity' => $quantity, 'subtotal' => $subtotal]);
+    }                                   
+
+    public function coupon(Request $request)
+    {                       
+        if ($request->ajax()) {
+            $now = Carbon::now();
+            $coupon = Coupon::where('coupons.code', $request->coupon)->first();
+            if ($coupon) {
+                if ($coupon->ended_at && $coupon->started_at < $now) {
+                    $data = $coupon->value;
+                    return response()->json(['data' => $data, 'status' => Response::HTTP_OK,]);
+                }
+            }
+        }
+        return [
+            'status' => Response::HTTP_NOT_FOUND,
+            'msg' => [
+                'text' => trans('message.no_coupon'),
+            ],
+        ];
+    }                                                                                                                                                                                                             
 }

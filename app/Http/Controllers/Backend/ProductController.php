@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Common\Common;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -66,7 +67,7 @@ class ProductController extends Controller
         return view('admin.product.create', compact('brands', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -120,7 +121,7 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('brands', 'categories', 'product', 'proCates'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         try {
             $products = Product::find($id);
