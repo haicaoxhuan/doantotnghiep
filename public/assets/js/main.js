@@ -679,56 +679,56 @@
         duration: 1000,
     });
 
-    $(".btn-detail").on("click", function () {
-        var product_id = $(this).data("product-id");
-        $.ajax({
-            type: "post",
-            url: "/modal",
-            headers: {
-                "X-CSRF-Token": $('input[name="_token"]').val(),
-            },
-            data: { product_id: product_id },
-            dataType: "JSON",
-            success: function (data) {
-                $("#productName").html(data.name);
-                $("#productImg").html(data.images);
-                $("#productDes").html(data.short_des);
-                $("#countRate").html(data.count);
-                $("#productId").append(
-                    `<a class='add_cart' href="/cart/add/${data.id}" >Add to cart</a>`
-                );
+    // $(".btn-detail").on("click", function () {
+    //     var product_id = $(this).data("product-id");
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/modal",
+    //         headers: {
+    //             "X-CSRF-Token": $('input[name="_token"]').val(),
+    //         },
+    //         data: { product_id: product_id },
+    //         dataType: "JSON",
+    //         success: function (data) {
+    //             $("#productName").html(data.name);
+    //             $("#productImg").html(data.images);
+    //             $("#productDes").html(data.short_des);
+    //             $("#countRate").html(data.count);
+    //             $("#productId").append(
+    //                 `<a class='add_cart' href="/cart/add/${data.id}" >Add to cart</a>`
+    //             );
 
-                if (data.price_dc != null) {
-                    $("#pricePro").append(`
-                        <span class="old-price" id="productPice">${data.price}</span>
-                        <span class="new-price " id="productPiceDc">${data.price_dc}</span>
-                        `);
-                } else {
-                    $("#pricePro").append(
-                        `<span class="rmPrice" id="productPice" style="font-size: 20px;" >${data.price}</span>`
-                    );
-                }
+    //             if (data.price_dc != null) {
+    //                 $("#pricePro").append(`
+    //                     <span class="old-price" id="productPice">${data.price}</span>
+    //                     <span class="new-price " id="productPiceDc">${data.price_dc}</span>
+    //                     `);
+    //             } else {
+    //                 $("#pricePro").append(
+    //                     `<span class="rmPrice" id="productPice" style="font-size: 20px;" >${data.price}</span>`
+    //                 );
+    //             }
 
-                for (let i = 1; i <= 5; i++) {
-                    if (i <= data.rate) {
-                        $(".ratePro").append(
-                            '<i class=" fa fa-star id="ratePro"></i>'
-                        );
-                    } else {
-                        $(".ratePro").append(
-                            '<i class=" fa fa-star-o" id="rateProo"></i>'
-                        );
-                    }
-                }
-            },
-        });
-    });
-    $(".btn-detail").click(function () {
-        $("#productPice").remove();
-        $("#productPiceDc").remove();
-        $(".ratePro .fa").remove();
-        $(".add_cart").remove();
-    });
+    //             for (let i = 1; i <= 5; i++) {
+    //                 if (i <= data.rate) {
+    //                     $(".ratePro").append(
+    //                         '<i class=" fa fa-star id="ratePro"></i>'
+    //                     );
+    //                 } else {
+    //                     $(".ratePro").append(
+    //                         '<i class=" fa fa-star-o" id="rateProo"></i>'
+    //                     );
+    //                 }
+    //             }
+    //         },
+    //     });
+    // });
+    // $(".btn-detail").click(function () {
+    //     $("#productPice").remove();
+    //     $("#productPiceDc").remove();
+    //     $(".ratePro .fa").remove();
+    //     $(".add_cart").remove();
+    // });
 
     $(document).ready(function () {
         $(".choose").on("change", function () {
@@ -755,6 +755,9 @@
                 },
             });
         });
+    });
+    $( document ).ready(function() {
+        countMiniCart();
     });
 
     //giỏ hàng ajax
@@ -785,17 +788,28 @@
             success: function (response) {
                 if (response.status === 200) {
                     toastr.success(response.msg.text, { timeOut: 5000 });
-                    console.log(response);
-                    $(".mini-cart").html(response.data);
-                    var products =  document.querySelectorAll(".cart-pro-subtotal");
+                    $(".mini-cart").html(response.html);
+
                     var sum = 0;
-                    $.each(products, function (index, value) {
-                        sum += Number(value.innerHTML.replace(/\D/g, ""));
+                    $.each(response.data, function (index, value) {
+                        sum += value.quantity * value.price;
                     });
+                    $(".mini-cart-subtotal").html(formatMoney(sum) + "đ");
+                    countMiniCart();
                 } else {
                     toastr.error(response.msg.title, { timeOut: 5000 });
                 }
             },
         });
     });
+
+
+    function countMiniCart() {
+        var value_qty = document.querySelectorAll(".mini-qty");
+        var sum = 0;
+        $.each(value_qty, function (index, value) {
+            sum += Number(value.innerHTML.replace(/\D/g, ""));
+        });
+        $('.cart-count').html(sum);
+    }
 })(jQuery);

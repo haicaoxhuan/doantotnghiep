@@ -13,7 +13,19 @@ class ProductController extends Controller
 {
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        // $product = Product::findOrFail($id);
+        $product = Product::select(
+            'products.id',
+            'products.name',
+            'products.description',
+            'products.short_des',
+            'products.sku',
+            'products.brand_id',
+            'products.images',
+            'products.attribute',
+        )->leftjoin('brands', 'brands.id', 'products.brand_id')
+        ->where('products.id', $id)->first();
+        dd($product->attribute);
 
         $category = ProductCategory::select(
             'pro_cates.*',

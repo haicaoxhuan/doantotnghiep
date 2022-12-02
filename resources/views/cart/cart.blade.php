@@ -72,9 +72,11 @@
                                                 <td class="product-total">
                                                     <span class="cart-pro-subtotal">{{ number_format($subtotal) }}đ</span>
                                                 </td>
-                                                <td class="product-remove"><a
-                                                        href="{{ route('delete.cart', ['id' => $cart->cartDetailId]) }}"><i
-                                                            class=" ti-trash "></i></a></td>
+                                                <form action="{{ route('delete.cart', ['id' => $cart->cartDetailId]) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <td class="product-remove"><button type="submit"><i class=" ti-trash "></i></button></td>
+                                                </form>
                                             </tr>
                                         @endforeach
 

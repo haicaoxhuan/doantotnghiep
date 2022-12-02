@@ -1,4 +1,4 @@
-<form action="">
+{{-- <form > --}}
     @csrf
     <input type="hidden" value="{{$product->id}}" class="product_id_{{$product->id}}">
     <input type="hidden" value="{{$product->name}}" class="product_name_{{$product->id}}">
@@ -18,7 +18,8 @@
         </div>
         <div class="product-action-2-wrap">
             {{-- <a href="{{route('add.cart',[ 'id' => $product->id])}}" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i>Add to cart</a> --}}
-            <button type="button" data-id="{{$product->id}}" class="product-action-btn-2 add-cart" title="Add To Cart"><i class="pe-7s-cart"></i>Add to cart</button>
+            <button type="button" data-id="{{$product->id}}" class="product-action-btn-2 btn-detail " title="Add To Cart" title="Quick View"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-cart"></i>Add to cart</button>
         </div>
     </div>
     <div class="product-content">
@@ -32,4 +33,4 @@
             @endif
         </div>
     </div>
-</form>
+{{-- </form> --}}

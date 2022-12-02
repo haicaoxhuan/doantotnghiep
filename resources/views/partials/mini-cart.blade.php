@@ -6,10 +6,13 @@
         </div>
         <div class="cart-title">
             <h4><a href="{{route('front.product', ['id' => $cart->id])}}">{{$cart->product_name}}</a></h4>
-            <span>{{$cart->quantity }} x {{number_format($cart->price)}}đ	</span>
+            <span class="mini-qty">{{$cart->quantity }} </span><span>x {{number_format($cart->price)}}đ	</span>
         </div>
         <div class="cart-delete">
-            <a href="{{route('delete.cart', ['id' => $cart->id])}}">×</a>
+            <form action="{{route('delete.cart', ['id' => $cart->id])}}" method="post">
+            @method('delete')
+            <button type="submit">×</button>
+            </form>
         </div>
     </li>
     @endforeach

@@ -90,7 +90,7 @@ class CounponController extends Controller
                 'started_at' => isset($request->start) ? Carbon::createFromFormat('d/m/Y H:i', $request->start) : $request->start,
                 'ended_at' => isset($request->end) ? Carbon::createFromFormat('d/m/Y H:i', $request->end) : $request->end,
             ];
-            $coupons= $coupons->create($param);
+            $coupons= $coupons->update($param);
             DB::commit();
             return redirect()->route('admin.coupon.index')->with([
                 'status_succeed' => trans('message.update_product_success')

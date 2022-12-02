@@ -20,6 +20,7 @@ class Product extends Model
 
     protected $casts = [
         'images' => 'array',
+        'attribute' => 'array',
     ];
 
     public static function checkFeatured($status)

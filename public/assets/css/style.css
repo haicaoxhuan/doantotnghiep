@@ -1593,7 +1593,7 @@ textarea {
           justify-content: flex-end;
 }
 
-.sidebar-cart-active .sidebar-cart-all .cart-content ul li .cart-delete a {
+.sidebar-cart-active .sidebar-cart-all .cart-content ul li .cart-delete button {
   display: block;
   font-size: 20px;
   height: 20px;

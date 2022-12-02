@@ -83,7 +83,6 @@ class CartController extends Controller
                     $cartDetail = CartDetail::where('cart_id', $cart->id)->where('product_id', $request->id)->first();
                     if ($cartDetail) {
                         $cartDetail->quantity = $cartDetail->quantity + 1;
-                        $cartDetail->subtotal = $cartDetail->price * $cartDetail->quantity;
                         $cartDetail->save();
                     } else {
                         $cartDetail = new CartDetail;
@@ -92,7 +91,6 @@ class CartController extends Controller
                         $cartDetail->price = $request->price_dc ?? $request->price;
                         $cartDetail->quantity = $request->quantity ?? 1;
                         $cartDetail->images = $request->images;
-                        $cartDetail->subtotal = $cartDetail->price * $cartDetail->quantity;
                         $cartDetail->save();
                     }
                 } else {
@@ -105,9 +103,9 @@ class CartController extends Controller
                     $cartDetail->price = $request->price_dc ?? $request->price;
                     $cartDetail->quantity = $request->quantity ?? 1;
                     $cartDetail->images = $request->images;
-                    $cartDetail->subtotal = $cartDetail->price * $cartDetail->quantity;
                     $cartDetail->save();
                 }
+                $cartUpdate = $this->getCart();
                 $html = view('partials.mini-cart')->render();
                 DB::commit();
                 return [
@@ -115,7 +113,8 @@ class CartController extends Controller
                     'msg' => [
                         'text' => trans('message.success'),
                     ],
-                    'data' => $html
+                    'html' => $html,
+                    'data' => $cartUpdate
                 ];
             }
         } catch (\Exception $e) {
