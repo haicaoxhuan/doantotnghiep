@@ -89,8 +89,6 @@
     <script src="{{asset('assets/js/plugins/slinky.min.js')}}"></script>
     <script src="{{asset('assets/js/plugins/ajax-mail.js')}}"></script>
     <!-- Main JS -->
-    <script src="{{asset('assets/js/main.js')}}"></script>
-    <script src="{{asset('assets/js/cart.js')}}"></script>
     <script src="{{ asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
     <script type="module">
         // Show alert

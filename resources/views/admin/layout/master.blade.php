@@ -56,6 +56,7 @@
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{{ asset('assets/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{asset('assets/admin/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     
     <script src="{{ asset('assets/admin/dist/js/deleteRecord.js') }}"></script>
     <script type="module">

@@ -30,20 +30,24 @@ class CartController extends Controller
     {
         $custId = Auth::guard('customer')->id();
         $carts = Cart::select(
-            'cart.*',
+            'cart.id',
+            'cart.customer_id',
             'cart_detail.id as cartDetailId',
             'cart_detail.cart_id',
-            'cart_detail.product_id',
+            'cart_detail.product_detail_id',
             'cart_detail.quantity',
             'cart_detail.price',
             'cart_detail.images',
+            'cart_detail.deleted_at',
             'products.name as product_name',
             'customers.id as customerId',
         )
             ->leftjoin('cart_detail', 'cart.id', 'cart_detail.cart_id')
-            ->leftjoin('products', 'products.id', 'cart_detail.product_id')
             ->leftjoin('customers', 'customers.id', 'cart.customer_id')
+            ->leftjoin('product_details', 'product_details.id', 'cart_detail.product_detail_id')
+            ->leftjoin('products', 'products.id', 'product_details.product_id')
             ->where('customers.id', $custId)
+            ->where('cart_detail.deleted_at', null)
             ->get();
 
         return view('cart.cart', compact('carts'));
@@ -53,20 +57,24 @@ class CartController extends Controller
     {
         $custId = Auth::guard('customer')->id();
         $carts = Cart::select(
-            'cart.*',
+            'cart.id',
+            'cart.customer_id',
             'cart_detail.id as cartDetailId',
             'cart_detail.cart_id',
-            'cart_detail.product_id',
+            'cart_detail.product_detail_id',
             'cart_detail.quantity',
             'cart_detail.price',
             'cart_detail.images',
+            'cart_detail.deleted_at',
             'products.name as product_name',
             'customers.id as customerId',
         )
             ->leftjoin('cart_detail', 'cart.id', 'cart_detail.cart_id')
-            ->leftjoin('products', 'products.id', 'cart_detail.product_id')
             ->leftjoin('customers', 'customers.id', 'cart.customer_id')
+            ->leftjoin('product_details', 'product_details.id', 'cart_detail.product_detail_id')
+            ->leftjoin('products', 'products.id', 'product_details.product_id')
             ->where('customers.id', $custId)
+            ->where('cart_detail.deleted_at', null)
             ->get();
 
         return $carts;
@@ -80,16 +88,16 @@ class CartController extends Controller
                 $custId = Auth::guard('customer')->id();
                 $cart = Cart::select('cart.id')->where('cart.customer_id', $custId)->first();
                 if ($cart) {
-                    $cartDetail = CartDetail::where('cart_id', $cart->id)->where('product_id', $request->id)->first();
+                    $cartDetail = CartDetail::where('cart_id', $cart->id)->where('product_detail_id', $request->id)->first();
                     if ($cartDetail) {
-                        $cartDetail->quantity = $cartDetail->quantity + 1;
+                        $cartDetail->quantity = $cartDetail->quantity + $request->quantity;
                         $cartDetail->save();
                     } else {
                         $cartDetail = new CartDetail;
                         $cartDetail->cart_id = $cart->id;
-                        $cartDetail->product_id = $request->id;
+                        $cartDetail->product_detail_id = $request->id;
                         $cartDetail->price = $request->price_dc ?? $request->price;
-                        $cartDetail->quantity = $request->quantity ?? 1;
+                        $cartDetail->quantity = $request->quantity;
                         $cartDetail->images = $request->images;
                         $cartDetail->save();
                     }
@@ -99,9 +107,9 @@ class CartController extends Controller
 
                     $cartDetail = new CartDetail;
                     $cartDetail->cart_id = $newCart->id;
-                    $cartDetail->product_id = $request->id;
+                    $cartDetail->product_detail_id = $request->id;
                     $cartDetail->price = $request->price_dc ?? $request->price;
-                    $cartDetail->quantity = $request->quantity ?? 1;
+                    $cartDetail->quantity = $request->quantity;
                     $cartDetail->images = $request->images;
                     $cartDetail->save();
                 }
@@ -184,10 +192,10 @@ class CartController extends Controller
         }
 
         return response()->json(['quantity' => $quantity, 'subtotal' => $subtotal]);
-    }                                   
+    }
 
     public function coupon(Request $request)
-    {                       
+    {
         if ($request->ajax()) {
             $now = Carbon::now();
             $coupon = Coupon::where('coupons.code', $request->coupon)->first();
@@ -204,5 +212,5 @@ class CartController extends Controller
                 'text' => trans('message.no_coupon'),
             ],
         ];
-    }                                                                                                                                                                                                             
+    }
 }

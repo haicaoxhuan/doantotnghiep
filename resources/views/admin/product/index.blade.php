@@ -42,7 +42,7 @@
                                     <th class="text-center pro-name" scope="col">{{trans('language.product_name')}}</th>
                                     <th class="text-center pro-img" scope="col">{{trans('language.image')}}</th>
                                     <th class="text-center pro-price" scope="col">{{trans('language.price')}}</th>
-                                    <th class="text-center pro-pricedc" scope="col">{{trans('language.price_dc')}}</th>
+                                    <th class="text-center pro-color" scope="col">{{trans('language.color')}}</th>
                                     <th class="text-center qty" scope="col">{{trans('language.qty')}}</th>
                                     <th class="text-center sku" scope="col">{{trans('language.sku')}}</th>
                                     <th class="text-center featured" scope="col">{{trans('language.featured')}}</th>
@@ -57,9 +57,9 @@
                                         </td>
                                         <td class="text-center">{{ $product->name }}</td>
                                         <td class="text-center"> <img src="{{ asset($product->images[0]) }}"  alt=""class="img-br"></td>
-                                        <td class="text-center">{{number_format($product->price)}}đ</td>
-                                        <td class="text-center">{{number_format(isset($product->price_dc) ? $product->price_dc : 0)}}đ</td>
-                                        <td class="text-center">{{$product->quantity}}</td>
+                                        <td class="text-center">{{number_format($product->minPrice)}}đ - {{number_format($product->maxPrice)}}đ</td>
+                                        <td class="text-center">{{$product->color}}</td>
+                                        <td class="text-center">{{$product->qty}}</td>
                                         <td class="text-center">{{$product->sku}}</td>
                                         <td class="text-center">{!! \App\Models\Product::checkFeatured($product->featured) !!}</td>
                                         <td class="text-center">

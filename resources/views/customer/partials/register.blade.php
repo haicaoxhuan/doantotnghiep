@@ -72,4 +72,5 @@
             $("#login-alert").slideUp(500);
         });
     </script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
 @endsection

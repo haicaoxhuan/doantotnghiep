@@ -5396,6 +5396,26 @@ textarea {
   line-height: 60px;
 }
 
+.product-quality .qtybuttonn {
+  position: absolute;
+  color: #8f8f8f;
+  left: 10px;
+  cursor: pointer;
+}
+
+.product-quality .qtybuttonn.inc {
+  left: auto;
+  right: 10px;
+  font-size: 20px;
+  top: 15px;
+}
+
+.product-quality .qtybuttonn.dec {
+  top: -2px;
+  font-size: 30px;
+  line-height: 60px;
+}
+
 .single-product-cart {
   margin: 0 24px 0 10px;
 }

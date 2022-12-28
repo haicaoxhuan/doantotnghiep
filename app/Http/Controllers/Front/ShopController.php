@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -20,7 +21,21 @@ class ShopController extends Controller
 
         $search = $request->search ?? '';
 
-        $products = Product::where('name', 'like', '%' . $search . '%');
+        $products = Product::select(
+            'products.id',
+            'products.name',
+            'products.description',
+            'products.short_des',
+            'products.sku',
+            'products.brand_id',
+            'products.images',
+            DB::raw('MAX(product_details.price) as maxPrice'),
+            DB::raw('MIN(product_details.price) as minPrice'),
+        )
+        ->leftjoin('product_details', 'products.id', 'product_details.product_id')
+        ->groupBy('product_details.product_id');
+
+        $products ->where('name', 'like', '%' . $search . '%');
 
         $products = $this->filter($products, $request);
         

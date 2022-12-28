@@ -250,14 +250,28 @@
     ------------------------------ */
 
     var CartPlusMinus = $(".product-quality");
-    CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
-    CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+    CartPlusMinus.prepend('<div class="dec qtybuttonn">-</div>');
+    CartPlusMinus.append('<div class="inc qtybuttonn">+</div>');
 
-    $(".qtybutton").on("click", function () {
+    $('.qty').on('input', function(){
+        var data = $(this).val();
+        data = Number(data.replace(/\D/g, ""));
+        var quantity = Number($(this).closest('.product-details-content').find('.qty-detail').text());
+        if(data > quantity){
+            data = quantity;
+        }
+        $(this).val(data);
+    })
+
+    $(".qtybuttonn").on("click", function () {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
+        var quantity = Number($(this).closest('.product-details-content').find('.qty-detail').text());
         if ($button.text() === "+") {
             var newVal = parseFloat(oldValue) + 1;
+            if(newVal > quantity){
+                newVal = quantity;
+            }
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 1) {
@@ -267,38 +281,7 @@
             }
         }
         $button.parent().find("input").val(newVal);
-
-        updatedCart($(this).closest(".cart-quality"));
-        if ($('input[name="coupon_code"]').val().length) {
-            addCoupon();
-        }
     });
-
-    function updatedCart(item) {
-        var cart_qty = item.find(".qty").val();
-        var cart_pro_id = item.find(".qty").data("id");
-        var car_pro_price = item.find(".qty").data("price");
-        $.ajax({
-            type: "GET",
-            url: "cart/update",
-            data: { id: cart_pro_id, qty: cart_qty, price: car_pro_price },
-            success: function (response) {
-                item.closest("tr")
-                    .find(".cart-pro-subtotal")
-                    .html(formatMoney(response.subtotal) + "đ");
-                var products = document.querySelectorAll(".cart-pro-subtotal");
-                var sum = 0;
-                $.each(products, function (index, value) {
-                    sum += Number(value.innerHTML.replace(/\D/g, ""));
-                });
-                $(".sumCart").html(formatMoney(sum) + "đ");
-                if ($('input[name="coupon_code"]').val().length == 0) {
-                    $(".total-coupon").html(formatMoney(sum) + "đ");
-                }
-            },
-            error: function (error) {},
-        });
-    }
 
     function formatMoney(n) {
         if (n == 0) {
@@ -310,37 +293,7 @@
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    $(".add-coupon").on("click", function () {
-        addCoupon();
-    });
-
-    function addCoupon() {
-        var coupon = $('input[name="coupon_code"]').val();
-        $.ajax({
-            type: "POST",
-            headers: {
-                "X-CSRF-Token": $('input[name="_token"]').val(),
-            },
-            url: "/add-coupon",
-            data: {
-                coupon: coupon,
-            },
-            success: function (response) {
-                var value_code = document.querySelector(".sumCart");
-                var value = Number(value_code.innerHTML.replace(/\D/g, ""));
-                if (response.status === 200) {
-                    var value_coupon = value * Number(response.data / 100);
-                    var total = value * Number((100 - response.data) / 100);
-                    $(".value-coupon").html(formatMoney(value_coupon) + "đ");
-                    $(".total-coupon").html(formatMoney(total) + "đ");
-                } else {
-                    $(".value-coupon").html("");
-                    $(".total-coupon").html(formatMoney(value) + "đ");
-                    toastr.error(response.msg.text, { timeOut: 5000 });
-                }
-            },
-        });
-    }
+    
 
     /*------ end cart -------- */
 
@@ -442,19 +395,16 @@
         sliderrange.slider({
             range: true,
             min: 0,
-            max: 999,
-            values: [0, 999],
+            max: 99999,
+            values: [0, 99999],
             slide: function (event, ui) {
-                amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
+                amountprice.val(ui.values[0] + "đ" + " - " + ui.values[1]+"đ");
                 startprice.val(ui.values[0]);
                 endprice.val(ui.values[1]);
             },
         });
         amountprice.val(
-            "$" +
-                sliderrange.slider("values", 0) +
-                " - $" +
-                sliderrange.slider("values", 1)
+            sliderrange.slider("values", 0) + "đ" + " - " +  sliderrange.slider("values", 1)+"đ"
         );
     });
 
@@ -679,57 +629,7 @@
         duration: 1000,
     });
 
-    // $(".btn-detail").on("click", function () {
-    //     var product_id = $(this).data("product-id");
-    //     $.ajax({
-    //         type: "post",
-    //         url: "/modal",
-    //         headers: {
-    //             "X-CSRF-Token": $('input[name="_token"]').val(),
-    //         },
-    //         data: { product_id: product_id },
-    //         dataType: "JSON",
-    //         success: function (data) {
-    //             $("#productName").html(data.name);
-    //             $("#productImg").html(data.images);
-    //             $("#productDes").html(data.short_des);
-    //             $("#countRate").html(data.count);
-    //             $("#productId").append(
-    //                 `<a class='add_cart' href="/cart/add/${data.id}" >Add to cart</a>`
-    //             );
-
-    //             if (data.price_dc != null) {
-    //                 $("#pricePro").append(`
-    //                     <span class="old-price" id="productPice">${data.price}</span>
-    //                     <span class="new-price " id="productPiceDc">${data.price_dc}</span>
-    //                     `);
-    //             } else {
-    //                 $("#pricePro").append(
-    //                     `<span class="rmPrice" id="productPice" style="font-size: 20px;" >${data.price}</span>`
-    //                 );
-    //             }
-
-    //             for (let i = 1; i <= 5; i++) {
-    //                 if (i <= data.rate) {
-    //                     $(".ratePro").append(
-    //                         '<i class=" fa fa-star id="ratePro"></i>'
-    //                     );
-    //                 } else {
-    //                     $(".ratePro").append(
-    //                         '<i class=" fa fa-star-o" id="rateProo"></i>'
-    //                     );
-    //                 }
-    //             }
-    //         },
-    //     });
-    // });
-    // $(".btn-detail").click(function () {
-    //     $("#productPice").remove();
-    //     $("#productPiceDc").remove();
-    //     $(".ratePro .fa").remove();
-    //     $(".add_cart").remove();
-    // });
-
+    //select commue
     $(document).ready(function () {
         $(".choose").on("change", function () {
             var action = $(this).attr("id");
@@ -756,18 +656,16 @@
             });
         });
     });
-    $( document ).ready(function() {
-        countMiniCart();
-    });
 
     //giỏ hàng ajax
     $(".add-cart").on("click", function () {
         var id = $(this).data("id");
 
-        var product_id = $(".product_id_" + id).val();
+        var product_detail_id = $(".color.active").data('id');
+        var color = $(".color.active").data('color');
         var product_name = $(".product_name_" + id).val();
-        var product_price_dc = $(".product_price_dc_" + id).val();
-        var product_price = $(".product_price_" + id).val();
+        // var product_price_dc = $(".product_price_dc_" + id).val();
+        var product_price = Number($(".price-detail").text().replace(/\D/g, ""));
         var product_images = $(".product_images_" + id).val();
         var product_qty = $(".product_qty_" + id).val();
 
@@ -778,12 +676,13 @@
             },
             url: "/cart/add",
             data: {
-                id: product_id,
+                id: product_detail_id,
                 name: product_name,
                 price: product_price,
-                price_dc: product_price_dc,
+                // price_dc: product_price_dc,
                 images: product_images,
                 quantity: product_qty,
+                color:color,
             },
             success: function (response) {
                 if (response.status === 200) {
@@ -800,10 +699,16 @@
                     toastr.error(response.msg.title, { timeOut: 5000 });
                 }
             },
+            error:function(err){
+            }
         });
     });
 
+    $( document ).ready(function() {
+        countMiniCart();
+    });
 
+    //mini cart
     function countMiniCart() {
         var value_qty = document.querySelectorAll(".mini-qty");
         var sum = 0;
@@ -812,4 +717,23 @@
         });
         $('.cart-count').html(sum);
     }
+    
+    //choose color
+    $('.color').on('click', function(){
+        var id = $(this).data("id");
+        $.ajax({
+            type: "POST",
+            headers: {
+                "X-CSRF-Token": $('input[name="_token"]').val(),
+            },
+            url: "/chooseColor",
+            data: { id:id},
+            success: function (response) {
+                $('.price-detail').html(formatMoney(response.product.price) + "đ");
+                $('.qty-detail').html(response.product.quantity);
+            }
+        });
+    })
+    $('.color:eq(0)').addClass('active');
+    
 })(jQuery);

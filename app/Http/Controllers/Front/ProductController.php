@@ -7,13 +7,14 @@ use App\Models\Product;
 use App\Models\Product_Image;
 use App\Models\ProductCategory;
 use App\Models\ProductComment;
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function show($id)
     {
-        // $product = Product::findOrFail($id);
         $product = Product::select(
             'products.id',
             'products.name',
@@ -22,10 +23,16 @@ class ProductController extends Controller
             'products.sku',
             'products.brand_id',
             'products.images',
-            'products.attribute',
+            'product_details.id as proDetailId',
+            'product_details.price',
+            'product_details.quantity',
+            DB::raw('MAX(product_details.price)'),
+            DB::raw('MIN(product_details.price)'),
         )->leftjoin('brands', 'brands.id', 'products.brand_id')
-        ->where('products.id', $id)->first();
-        dd($product->attribute);
+        ->leftjoin('product_details', 'products.id', 'product_details.product_id')
+        ->where('products.id', $id)
+        ->with('productDetail')
+        ->first();
 
         $category = ProductCategory::select(
             'pro_cates.*',
@@ -81,5 +88,13 @@ class ProductController extends Controller
         $output['count'] = '('.$countRating.' '.'Customer Review' .')';
 
         return json_encode($output);
+    }
+
+    public function chooseColor(Request $request)
+    {
+        if($request->ajax()){
+            $product = ProductDetail::find($request->id);
+        }
+        return response()->json(['product' => $product]);
     }
 }

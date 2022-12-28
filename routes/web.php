@@ -36,10 +36,7 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('front.pro
 Route::post('/product/{id}', [ProductController::class, 'comment'])->name('front.product.comment');
 Route::post('/modal', [ProductController::class, 'modal'])->name('front.product.modal');
 
-//checkout
-Route::get('cart/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('cart/address', [CheckoutController::class, 'address'])->name('checkout.address');
-Route::post('cart/checkout', [CheckoutController::class, 'addOrder'])->name('checkout.addorder');
+
 
 //customer
 Route::prefix('customer')->group(function () {
@@ -55,13 +52,21 @@ Route::middleware(['customer'])->group(function () {
     Route::get('/success', [CustomerController::class, 'registersucces'])->name('customer.registersucces');
     //cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::post('/cart/add', [CartController::class, 'add'])->name('add.cart');
+    Route::post('cart/add', [CartController::class, 'add'])->name('add.cart');
     Route::delete('cart/delete/{id}', [CartController::class, 'delete'])->name('delete.cart');
     Route::get('cart/destroy', [CartController::class, 'destroy'])->name('destroy.cart');
     Route::get('/cart/update', [CartController::class, 'update'])->name('update.cart');
     Route::get('/cart/loadcart', [CartController::class, 'loadcart'])->name('loadcart.cart');
     Route::post('/add-coupon', [CartController::class, 'coupon'])->name('add.coupon');
     Route::post('/mini-cart', [CartController::class, 'miniCart'])->name('mini.cart');
+
+    //checkout
+    Route::get('cart/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('cart/address', [CheckoutController::class, 'address'])->name('checkout.address');
+    Route::post('cart/checkout', [CheckoutController::class, 'addOrder'])->name('checkout.addorder');
+
+    /////
+    Route::post('chooseColor', [ProductController::class, 'chooseColor'])->name('product.chooseColor');
 });
 //admin
 Route::prefix('admin')->group(function () {

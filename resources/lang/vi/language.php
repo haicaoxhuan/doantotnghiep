@@ -47,6 +47,9 @@ return [
     'edit_pro' => 'Sửa sản phẩm',
     'pro_des' => 'Mô tả',
     'pro_sort_des' => 'Mô tả ngắn',
+    'color' => 'Màu',
+    'color_code' => 'Mã màu',
+    'pro_detail' => 'Chi tiết sản phẩm',
 
     //coupon
     'coupon' => 'Mã giảm giá',

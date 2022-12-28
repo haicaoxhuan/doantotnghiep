@@ -74,10 +74,11 @@
     </div>
 @endsection
 @section('addjs')
-<script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
-<script type="text/javascript">
-    $("#login-alert").fadeTo(2000, 500).slideUp(500, function() {
-        $("#login-alert").slideUp(500);
-    });
-</script>
+    <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+        $("#login-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#login-alert").slideUp(500);
+        });
+    </script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
 @endsection

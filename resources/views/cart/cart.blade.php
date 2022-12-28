@@ -25,6 +25,7 @@
             <img src="assets/images/banner/breadcrumb-2.png" alt="">
         </div>
     </div>
+
     <div class="cart-area pt-100 pb-100">
         <div class="container">
             <div class="row">
@@ -51,8 +52,8 @@
                                                             src="{{ asset($cart->images) }}" alt=""></a>
                                                 </td>
                                                 <td class="product-name">
-                                                    <h5><a
-                                                            href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->product_name }}</a>
+                                                    <h5>
+                                                        <a href="{{ route('front.product', ['id' => $cart->id]) }}">{{ $cart->product_name }}</a>
                                                     </h5>
                                                 </td>
                                                 <td class="product-cart-price"><span
@@ -72,10 +73,12 @@
                                                 <td class="product-total">
                                                     <span class="cart-pro-subtotal">{{ number_format($subtotal) }}đ</span>
                                                 </td>
-                                                <form action="{{ route('delete.cart', ['id' => $cart->cartDetailId]) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <td class="product-remove"><button type="submit"><i class=" ti-trash "></i></button></td>
+                                                <form action="{{ route('delete.cart', ['id' => $cart->cartDetailId]) }}"
+                                                    method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <td class="product-remove"><button type="submit"><i
+                                                                class=" ti-trash "></i></button></td>
                                                 </form>
                                             </tr>
                                         @endforeach
@@ -109,17 +112,14 @@
                         <h4></h4>
                         <div class="calculate-discount-content">
                             <div class="select-style mb-15">
-
                             </div>
                             <div class="select-style mb-15">
-
                             </div>
                             <div class="input-style">
                             </div>
                             <div class="input-style">
                             </div>
                             <div class="calculate-discount-btn btn-hover">
-
                             </div>
                         </div>
                     </div>
@@ -163,6 +163,5 @@
 @endsection
 
 @section('addjs')
-    <script src="{{ asset('assets/js/price.min.js') }}"></script>
-    
+    <script src="{{ asset('assets/js/cart.js') }}"></script>
 @endsection

@@ -30,9 +30,11 @@ class ProductRequest extends FormRequest
             'qty' => 'required|alpha_num',
             'des' => 'required|max:5000|min:10',
             'sort_des' => 'required|max:255|min:10',
-            'sku' => 'required|unique:products|regex:/^[a-z0-9A-Z ]+$/i|min:10|max:20',
+            'sku' => 'required|unique:products|regex:/^[a-z0-9A-Z ]+$/i|min:6|max:20',
             'brand_id' => 'required',
             'category' => 'required',
+            'color' => 'required',
+            'color_code' => 'required',
         ];
     }
 

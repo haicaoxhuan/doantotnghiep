@@ -40,7 +40,6 @@ class Product extends Model
         return $html;
     }
 
-
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
@@ -64,5 +63,10 @@ class Product extends Model
     public function productComments()
     {
         return $this->hasMany(ProductComment::class, 'product_id', 'id');
+    }
+
+    public function productDetail()
+    {
+        return $this->hasMany(ProductDetail::class, 'product_id', 'id');
     }
 }

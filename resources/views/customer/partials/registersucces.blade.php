@@ -40,4 +40,5 @@
 </div>
 @endsection
 @section('addjs')
+    <script src="{{asset('assets/js/main.js')}}"></script>
 @endsection

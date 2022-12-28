@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Product_Image;
 use App\Models\ProductCategory;
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,22 +33,25 @@ class ProductController extends Controller
         $products = Product::select(
             'products.id',
             'products.name',
-            'products.price',
-            'products.price_dc',
-            'products.quantity',
-            'products.brand_id',
+            'products.description',
+            'products.short_des',
             'products.sku',
-            'products.featured',
-            'brands.id as brandId',
-            'brands.name as brandName',
-            'products.images'
+            'products.brand_id',
+            'products.images',
+            DB::raw('GROUP_CONCAT(product_details.color SEPARATOR ", ") AS color'),
+            DB::raw('SUM(product_details.quantity) as qty'),
+            DB::raw('MAX(product_details.price) as maxPrice'),
+            DB::raw('MIN(product_details.price) as minPrice'),
         )
             ->leftjoin('brands', 'brands.id', 'products.brand_id')
+            ->leftjoin('product_details', 'products.id', 'product_details.product_id')
+            ->groupBy('product_details.product_id')
             ->orderBy('products.id', 'DESC');
         if (isset($request->search)) {
             $products->where('products.name', 'like', '%' . $request->search . '%');
         }
-        $products = $products->paginate(10);
+        
+        $products = $products->paginate(20);
 
         return view('admin.product.index', compact('products'));
     }
@@ -67,27 +71,34 @@ class ProductController extends Controller
         return view('admin.product.create', compact('brands', 'categories'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $products = [
                 'name' => $request->name,
-                'price' => $request->price,
-                'price_dc' => $request->price_dc,
-                'quantity' => $request->qty,
                 'description' => $request->des,
                 'short_des' => $request->sort_des,
                 'brand_id' => $request->brand_id,
                 'featured' => $request->featured,
                 'sku' => $request->sku,
-                'images' => $request->productImg
+                'images' => $request->productImg,
             ];
 
             $product = $this->product->create($products);
-
             //pro_cates
             $product->category()->attach($request->category);
+            foreach($request->color as $key =>$value){
+                $product_details = new ProductDetail();
+                $product_details->product_id = $product->id;
+                $product_details->price = $request->price[$key];
+                $product_details->quantity = $request->qty[$key];
+                $product_details->color = $request->color[$key];
+                $product_details->color_code = $request->color_code[$key];
+                $product_details->save();
+            }
+            
 
             DB::commit();
             return redirect()->route('admin.product.index')->with([
@@ -115,6 +126,7 @@ class ProductController extends Controller
         )->get();
 
         $product = Product::find($id);
+        // dd($product->productDetail()->get());
 
         $proCates = ProductCategory::query()->where('pro_cates.product_id', $product->id)->pluck('pro_cates.category_id');
 

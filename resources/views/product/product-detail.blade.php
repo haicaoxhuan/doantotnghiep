@@ -5,7 +5,7 @@
 
 @section('body')
     @php
-    $request = request();
+        $request = request();
     @endphp
     <div class="breadcrumb-area bg-gray-4 breadcrumb-padding-1">
         <div class="container">
@@ -71,10 +71,10 @@
                         <h2>{{ $product->name }}</h2>
                         <div class="product-details-price">
                             @if ($product->price_dc != null)
-                                <span class="old-price"> {{ number_format($product->price)}}đ </span>
+                                <span class="old-price"> {{ number_format($product->price) }}đ </span>
                                 <span class="new-price"> {{ number_format($product->price_dc) }}đ </span>
                             @else
-                                <span style="font-size: 20px"> {{ number_format($product->price) }}đ </span>
+                                <span class="price-detail" style="font-size: 20px"> {{ number_format($product->price) }}đ </span>
                             @endif
                         </div>
                         <div class="product-details-review">
@@ -90,21 +90,26 @@
                             <span>( {{ $countRating }} Customer Review )</span>
                         </div>
                         <div class="product-color product-color-active product-details-color">
-
+                            <span>Màu :</span>
+                            <ul>
+                                @foreach ($product->productDetail as $detail)
+                                    <li><a data-color="{{$detail->color}}" data-id="{{$detail->id}}" title="{{$detail->color}}" class="pink color"></a></li>
+                                @endforeach
+                            </ul>
                         </div>
                         <div class="product-details-action-wrap">
                             <div class="product-quality">
-                                <input class="cart-plus-minus-box input-text qty text product_qty_{{$product->id}}" name="qtybutton" value="1">
+                                <input class="cart-plus-minus-box input-text qty text product_qty_{{ $product->id }}" name="qtybuttonn" value="1">
                             </div>
                             <div class="single-product-cart btn-hover">
                                 <form action="">
                                     <input type="hidden" value="{{ $product->id }}" class="product_id_{{ $product->id }}">
                                     <input type="hidden" value="{{ $product->name }}" class="product_name_{{ $product->id }}">
-                                    <input type="hidden" value="{{ $product->price }}" class="product_price_{{ $product->id }}">
-                                    <input type="hidden" value="{{ $product->price_dc }}" class="product_price_dc_{{ $product->id }}">
+                                    {{-- <input type="hidden" value="{{ $product->price }}" class="product_price_{{ $product->id }}">
+                                    <input type="hidden" value="{{ $product->price_dc }}" class="product_price_dc_{{ $product->id }}"> --}}
                                     <input type="hidden" value="{{ $product->images[0] }}" class="product_images_{{ $product->id }}">
                                 </form>
-                                <a data-id="{{$product->id}}" href="#" class="add-cart">Add to cart</a>
+                                <a data-id="{{ $product->id }}" class="add-cart">Add to cart</a>
                             </div>
                             <div class="single-product-wishlist">
                                 <a title="Wishlist" href="wishlist.html"><i class="pe-7s-like"></i></a>
@@ -123,9 +128,9 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li><span class="title">Tags:</span>
+                                <li><span class="title quantity">Số lượng:</span>
                                     <ul class="tag">
-                                        <li><a href="#">{{ $product->tag }}</a></li>
+                                        <li><a class="qty-detail" href="#">{{$product->quantity}}</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -170,8 +175,7 @@
                                             @endif
                                         @endfor
                                     </div>
-                                    <h5><span>{{ $item->customer_id ? $item->customer->name : $item->name }}</span> -
-                                        {{ date('M d, Y', strtotime($item->created_at)) }}</h5>
+                                    <h5><span>{{ $item->customer_id ? $item->customer->name : $item->name }}</span> - {{ date('M d, Y', strtotime($item->created_at)) }}</h5>
                                     <p>{{ $item->messages }}</p>
                                 </div>
                             </div>
@@ -236,4 +240,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('addjs')
+    <script src="{{asset('assets/js/main.js')}}"></script>
 @endsection

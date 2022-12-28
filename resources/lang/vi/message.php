@@ -27,6 +27,7 @@ return [
     //cart
     'delete_item_cart_successd' => 'Xóa sản phẩm khỏi giỏ hàng thành công',
     'clear_cart_successd' => 'Làm mới giỏ hàng thành công',
+    'error_cart' => 'Thêm sản phẩm thất bại',
 
     //coupon
     'create_coupon_successd' => 'Thêm mã giảm giá thành công',
