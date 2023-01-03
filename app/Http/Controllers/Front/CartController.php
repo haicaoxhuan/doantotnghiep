@@ -11,8 +11,6 @@ use App\Models\Customer;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-// use Gloudemans\Shoppingcart\Facades\Cart;
-
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +36,7 @@ class CartController extends Controller
             'cart_detail.quantity',
             'cart_detail.price',
             'cart_detail.images',
+            'cart_detail.color',
             'cart_detail.deleted_at',
             'products.name as product_name',
             'customers.id as customerId',
@@ -65,6 +64,7 @@ class CartController extends Controller
             'cart_detail.quantity',
             'cart_detail.price',
             'cart_detail.images',
+            'cart_detail.color',
             'cart_detail.deleted_at',
             'products.name as product_name',
             'customers.id as customerId',
@@ -99,6 +99,7 @@ class CartController extends Controller
                         $cartDetail->price = $request->price_dc ?? $request->price;
                         $cartDetail->quantity = $request->quantity;
                         $cartDetail->images = $request->images;
+                        $cartDetail->color = $request->color;
                         $cartDetail->save();
                     }
                 } else {
@@ -111,6 +112,7 @@ class CartController extends Controller
                     $cartDetail->price = $request->price_dc ?? $request->price;
                     $cartDetail->quantity = $request->quantity;
                     $cartDetail->images = $request->images;
+                    $cartDetail->color = $request->color;
                     $cartDetail->save();
                 }
                 $cartUpdate = $this->getCart();

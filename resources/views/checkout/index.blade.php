@@ -25,38 +25,7 @@
     <div class="checkout-main-area pb-100 pt-100">
         <div class="container">
             <div class="customer-zone mb-20">
-                <p class="cart-page-title">Returning customer? <a class="checkout-click1" href="#">Click here to
-                        login</a></p>
-                <div class="checkout-login-info">
-                    <p></p>
-                    <form action="">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="sin-checkout-login">
-                                    <label>Username or email address <span>*</span></label>
-                                    <input type="text" name="user-name">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="sin-checkout-login">
-                                    <label>Passwords <span>*</span></label>
-                                    <input type="password" name="user-password">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="button-remember-wrap">
-                            <button class="button" type="submit">Login</button>
-                            <div class="checkout-login-toggle-btn">
-                                <input type="checkbox">
-                                <label>Remember me</label>
-                            </div>
-                        </div>
-                        <div class="lost-password">
-                            <a href="#">Lost your password?</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                
             <div class="customer-zone mb-20">
                 <p class="cart-page-title">Have a coupon? <a class="checkout-click3" href="#">Click here to enter your
                         code</a></p>
@@ -149,28 +118,34 @@
                                                 <li>Product <span>Total</span></li>
                                             </ul>
                                         </div>
+                                        @php
+                                            $sum = 0;
+                                        @endphp
                                         <div class="your-order-middle">
                                             <ul>
                                                 @foreach ($carts as $cart)
-                                                    <li>{{ $cart->name }} X {{ $cart->qty }}<span>
-                                                            {{ $cart->price * $cart->qty }}đ </span></li>
+                                                    <li>{{ $cart->product_name }} X {{ $cart->quantity }}<span>{{ number_format($cart->price * $cart->quantity) }}₫ </span></li>
+                                                    @php
+                                                        $subtotal = $cart->price * $cart->quantity;
+                                                        $sum += $subtotal;
+                                                    @endphp
                                                 @endforeach
                                             </ul>
                                         </div>
                                         <div class="your-order-info order-subtotal">
                                             <ul>
-                                                <li>Subtotal <span>{{ $subtotal }}đ </span></li>
+                                                <li>Subtotal <span>{{number_format($sum)}}₫ </span></li>
                                             </ul>
                                         </div>
                                         <div class="your-order-info order-shipping">
                                             <ul>
-                                                <li>Discount <p>Enter your Discount </p>
-                                                </li>
+                                                <li>Discount <p>Enter your Discount </p></li>
                                             </ul>
                                         </div>
                                         <div class="your-order-info order-total">
                                             <ul>
-                                                <li>Total <span>{{ $total }}đ </span></li>
+                                                <li>Total <span class="total-checkout">{{number_format($sum)}}₫ </span></li>
+                                                <input name="total" type="hidden" value="{{$sum}}">
                                             </ul>
                                         </div>
                                     </div>
@@ -214,4 +189,8 @@
         </div>
     </div>
     </div>
+@endsection
+@section('addjs')
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/checkout.js') }}"></script>
 @endsection

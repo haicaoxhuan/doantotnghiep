@@ -54,28 +54,22 @@ var CartPlusMinus = $(".product-quality");
                 var value_code = document.querySelector(".sumCart");
                 var value = Number(value_code.innerHTML.replace(/\D/g, ""));
                 if (response.status === 200) {
-                    var value_coupon = value * Number(response.data / 100);
-                    var total = value * Number((100 - response.data) / 100);
-                    $(".value-coupon").html(formatMoney(value_coupon) + "đ");
-                    $(".total-coupon").html(formatMoney(total) + "đ");
+                    var value_coupon = value * (Number(response.data / 100));
+                    var total = value - value_coupon;
+                    $(".value-coupon").html(VND.format(value_coupon).replaceAll(".", ","));
+                    $(".total-coupon").html(VND.format(total).replaceAll(".", ","));
                 } else {
                     $(".value-coupon").html("");
-                    $(".total-coupon").html(formatMoney(value) + "đ");
+                    $(".total-coupon").html(VND.format(value).replaceAll(".", ","));
                     toastr.error(response.msg.text, { timeOut: 5000 });
                 }
             },
         });
     }
-
-    function formatMoney(n) {
-        if (n == 0) {
-            return "";
-        }
-        return n
-            .toString()
-            .replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
     function updatedCart(item) {
         var cart_qty = item.find(".qty").val();
@@ -88,15 +82,15 @@ var CartPlusMinus = $(".product-quality");
             success: function (response) {
                 item.closest("tr")
                     .find(".cart-pro-subtotal")
-                    .html(formatMoney(response.subtotal) + "đ");
+                    .html(VND.format(response.subtotal).replaceAll(".", ","));
                 var products = document.querySelectorAll(".cart-pro-subtotal");
                 var sum = 0;
                 $.each(products, function (index, value) {
                     sum += Number(value.innerHTML.replace(/\D/g, ""));
                 });
-                $(".sumCart").html(formatMoney(sum) + "đ");
+                $(".sumCart").html(VND.format(sum).replaceAll(".", ","));
                 if ($('input[name="coupon_code"]').val().length == 0) {
-                    $(".total-coupon").html(formatMoney(sum) + "đ");
+                    $(".total-coupon").html(VND.format(sum).replaceAll(".", ","));
                 }
             },
             error: function (error) {},

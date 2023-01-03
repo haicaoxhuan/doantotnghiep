@@ -15,14 +15,18 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code',100)->nullable();
+            $table->integer('customer_id')->unsigned()->nullable();
             $table->string('name',100)->nullable();
-            $table->string('email', 200)->unique()->nullable();
+            $table->string('email', 200)->nullable();
             $table->string('phone', 20)->nullable();
-            $table->string('city',120)->nullable();
+            $table->string('city', 120)->nullable();
             $table->string('district',120)->nullable();
             $table->string('ward',120)->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->string('address',100)->nullable();
+            $table->integer('coupon_id')->unsigned()->nullable();
+            $table->integer('status')->unsigned()->nullable();
+            $table->double('total')->nullable();
+            $table->softDeletes();
             $table->timestamps();
             #Status
             //0. Đang xử lý
