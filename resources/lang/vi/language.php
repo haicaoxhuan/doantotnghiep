@@ -21,6 +21,8 @@ return [
     'started_at' => 'Ngày bắt đầu',
     'ended_at' => 'Ngày kết thúc',
     'status' => 'Trạng thái',
+    'stt' =>'#',
+    'subtotal' =>'Thành tiền',
 
     //brand
     'brand' => 'Thương hiệu',
@@ -61,4 +63,27 @@ return [
     'value' => 'Giá trị', 
     'valuable' => 'Còn giá trị',
     'off_value' => 'Hết giá trị',
+    'coupon_value' => 'Giảm giá',
+
+    //order
+    'order' => 'Đơn hàng',
+    'order_code' => 'Mã đơn hàng',
+    'payments' => 'Hình thức thanh toán',
+    'cash' => 'Nhận hàng thanh toán',
+    'transfer' => 'Chuyển khoản',
+    'paypal' => 'Paypal',
+    'unconfirm' => 'Chưa xác nhận',
+    'delivery' => 'Đang giao hàng',
+    'successful' => 'Giao hàng thành công',
+    'order_detail' => 'Chi tiết đơn hàng',
+    'date_order' => 'Ngày đặt hàng',
+    'date_order' => 'Ngày đặt hàng',
+    'from_order' => 'Người gửi',
+    'to_order' => 'Người nhận',
+    'paid' => 'Thanh toán',
+    'paid_susses' => 'Đã thanh toán',
+    'un_paid' => 'Chưa thanh toán',
+    'temporary_pay' => 'Tạm tính',
+    'cancel' => 'Đã hủy',
+
 ];

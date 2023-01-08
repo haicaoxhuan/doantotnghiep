@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="checkout-wrap pt-30">
-                <form action="" method="post" >
+                <form action="{{route('checkout.addorder')}}" method="post" >
                     @csrf
                     <div class="row">
                         <div class="col-lg-7">
@@ -137,15 +137,32 @@
                                                 <li>Subtotal <span>{{number_format($sum)}}₫ </span></li>
                                             </ul>
                                         </div>
+                                        @php
+                                            if (isset($coupon)){
+                                                $value = $coupon->value;
+                                                $total = $sum - ($sum*$value)/100;
+                                            }else{
+                                                $total = $sum;
+                                            }
+                                        @endphp
+                                        @if (isset($coupon))
+                                        <input type="hidden" name="coupon" value="{{$coupon->id}}">
+                                        @endif
                                         <div class="your-order-info order-shipping">
                                             <ul>
-                                                <li>Discount <p>Enter your Discount </p></li>
+                                                <li>Discount 
+                                                    @if (isset($coupon))
+                                                        <p>{{number_format(($sum*$value)/100)}}₫</p>
+                                                    @else
+                                                        <p>Enter your Discount </p>
+                                                    @endif
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="your-order-info order-total">
                                             <ul>
-                                                <li>Total <span class="total-checkout">{{number_format($sum)}}₫ </span></li>
-                                                <input name="total" type="hidden" value="{{$sum}}">
+                                                <li>Total <span class="total-checkout">{{number_format($total)}}₫ </span></li>
+                                                <input name="total" type="hidden" value="{{$total}}">
                                             </ul>
                                         </div>
                                     </div>

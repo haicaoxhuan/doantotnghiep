@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoriesController;
 use App\Http\Controllers\Backend\CounponController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Front\CartController;
@@ -67,6 +68,9 @@ Route::middleware(['customer'])->group(function () {
 
     /////
     Route::post('chooseColor', [ProductController::class, 'chooseColor'])->name('product.chooseColor');
+
+    //coupon
+    Route::post('cart/checkout/coupon', [CheckoutController::class, 'coupon'])->name('checkout.coupon');
 });
 //admin
 Route::prefix('admin')->group(function () {
@@ -109,5 +113,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/coupon/edit/{id}', [CounponController::class, 'edit'])->name('admin.coupon.edit');
         Route::post('/coupon/update/{id}', [CounponController::class, 'update'])->name('admin.coupon.update');
         Route::delete('/coupon/delete/{id}', [CounponController::class, 'destroy'])->name('admin.coupon.destroy');
+
+        //order
+        Route::get('/order', [OrderController::class, 'index'])->name('admin.order.index');
+        Route::get('/order/{code}/detail', [OrderController::class, 'detail'])->name('admin.order.detail');
+        Route::post('/order/{code}/detail', [OrderController::class, 'updateStatus'])->name('admin.order.updateStatus');
+        Route::delete('/order/delete/{id}', [OrderController::class, 'destroy'])->name('admin.order.destroy');
+
+        Route::get('/order/pdf/{code}', [OrderController::class, 'pdf'])->name('admin.order.pdf');
     });
 });

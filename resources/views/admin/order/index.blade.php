@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ trans('language.coupon') }}</h1>
+                    <h1>{{ trans('language.order') }}</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -38,39 +38,31 @@
                             <thead>
                                 <tr>
                                     <th class="text-center " scope="col">#</th>
-                                    <th class="text-center " scope="col">{{ trans('language.coupon_name') }}</th>
-                                    <th class="text-center " scope="col">{{ trans('language.value') }}</th>
-                                    <th class="text-center " scope="col">{{ trans('language.qty') }}</th>
-                                    <th class="text-center " scope="col">{{ trans('language.started_at') }}</th>
-                                    <th class="text-center " scope="col">{{ trans('language.ended_at') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.order_code') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.payments') }}</th>
                                     <th class="text-center " scope="col">{{ trans('language.status') }}</th>
                                     <th class="text-center " scope="col">{{ trans('language.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($coupons as $idx => $coupon)
+                                @foreach ($orders as $idx => $order)
                                     <tr br-name>
                                         <td class="text-center">
-                                            {{ isset($idx) ? ($coupons->currentPage() - 1) * $coupons->perPage() + $idx + 1 : '' }}
+                                            {{ isset($idx) ? ($orders->currentPage() - 1) * $orders->perPage() + $idx + 1 : '' }}
                                         </td>
-                                        <td class="text-center">{{ $coupon->name }}</td>
-                                        <td class="text-center">{{ $coupon->value }}%</td>
-                                        <td class="text-center">{{ $coupon->quantity }}</td>
-                                        <td class="text-center">{{ date('H:i d/m/Y', strtotime($coupon->started_at)) }}
-                                        </td>
-                                        <td class="text-center">{{ date('H:i d/m/Y', strtotime($coupon->ended_at)) }}</td>
-                                        <td class="text-center">{!! \App\Models\Coupon::checkStatus($coupon->status) !!}</td>
+                                        <td class="text-center">{{ $order->code }}</td>
+                                        <td class="text-center">{!! \App\Models\Order::checkPaymets($order->payments) !!}</td>
+                                        <td class="text-center">{!! \App\Models\Order::checkStatus($order->status) !!}</td>
                                         <td class="text-center">
                                             <a class="btn btn-primary btn-sm rounded-0"
-                                                href="{{ route('admin.coupon.edit', ['id' => $coupon->id]) }}"><i
-                                                    class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
-                                            @if ($coupon->deleted_at == null)
+                                                href="{{ route('admin.order.detail', ['code' => $order->code]) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></i>{{ trans('language.order_detail') }}</a>
+                                            @if ($order->deleted_at == null)
                                                 <a class="btn btn-danger btn-sm rounded-0 deleteTable"
-                                                    href="{{ route('admin.coupon.destroy', ['id' => $coupon->id]) }}"
-                                                    data-id="{{ $coupon->id }}"
+                                                    href="{{ route('admin.order.destroy', ['id' => $order->id]) }}"
+                                                    data-id="{{ $order->id }}"
                                                     data-title="{{ trans('message.confirm_delete_coupon') }}"
-                                                    data-text="<span >{{ $coupon->name }}</span>"
-                                                    data-url="{{ route('admin.coupon.destroy', ['id' => $coupon->id]) }}"
+                                                    data-text="<span >{{ $order->code }}</span>"
+                                                    data-url="{{ route('admin.order.destroy', ['id' => $order->id]) }}"
                                                     data-method="DELETE" data-icon="question">
                                                     <i class="fa fa-trash pad"></i>{{ trans('language.delete') }}</a>
                                             @endif
@@ -81,12 +73,10 @@
                         </table>
                         <div>
                             <div style="float: right; padding-right: 10px">
-                                {{ $coupons->links('pagination::bootstrap-4') }}
+                                {{ $orders->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
                 </div>
             </div>
         </div>

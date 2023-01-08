@@ -96,6 +96,19 @@
 
                 </li>
             </ul>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
+                {{-- Order --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.order.index') }}" class="nav-link">
+                        <i class="nav-icon fa fa-flag"></i>
+                        <p>
+                            Đơn hàng
+                        </p>
+                    </a>
+
+                </li>
+            </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>

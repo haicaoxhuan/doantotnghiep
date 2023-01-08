@@ -137,10 +137,13 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="cart-calculate-discount-wrap mb-40">
                         <h4>Coupon Discount </h4>
                         <div class="calculate-discount-content">
+                            <form id="coupon-cp" action="{{ route('checkout.coupon')}}" method="POST" >
+                                @csrf
                             <p>Enter your coupon code if you have one.</p>
                             <div class="input-style">
                                 <input type="text" placeholder="Coupon code" name="coupon_code">
@@ -153,6 +156,7 @@
                 </div>
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="grand-total-wrap">
+                        
                         <div class="grand-total-content">
                             <h3>Subtotal: <span class="sumCart">{{ number_format($sum) }}₫</span></h3>
                             <div class="grand-shipping">
@@ -165,9 +169,13 @@
                                 <h4>Total <span class="total-coupon">{{ number_format($sum) }}₫</span></h4>
                             </div>
                         </div>
+                        @php
+                            $request = request()
+                        @endphp
                         <div class="grand-total-btn btn-hover">
-                            <a class="btn theme-color" href="{{ route('checkout') }}">Proceed to checkout</a>
+                            <a class="btn theme-color submit-cp" >Proceed to checkout</a>
                         </div>
+                    </form>
                     </div>
                 </div>
             </div>
