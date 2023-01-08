@@ -172,7 +172,7 @@ class OrderController extends Controller
         )->where('order_details.order_id', $order->id)
             ->get();
 
-        $pdf = PDF::loadView('admin.order.detail', ['order' =>  $order, 'orderDetails' =>$orderDetails]);
+        $pdf = PDF::loadView('admin.order.detail', ['order' =>  $order, 'orderDetails' =>$orderDetails])->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->download('order.pdf');
     }
 }
