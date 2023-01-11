@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoriesController;
 use App\Http\Controllers\Backend\CounponController;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
+use App\Http\Controllers\Customer\AccountController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
@@ -45,6 +46,7 @@ Route::prefix('customer')->group(function () {
     Route::post('/logout', [CustomerController::class, 'logout'])->name('customer.logout');
     Route::post('/register', [CustomerController::class, 'register'])->name('customer.register');
     Route::get('/register', [CustomerController::class, 'viewRegister'])->name('customer.viewRegister');
+    
 });
 Route::middleware(['customer'])->group(function () {
 
@@ -67,6 +69,10 @@ Route::middleware(['customer'])->group(function () {
 
     /////
     Route::post('chooseColor', [ProductController::class, 'chooseColor'])->name('product.chooseColor');
+
+    //account
+    Route::get('/account',[AccountController::class, 'index'])->name('customer.account');
+    Route::get('/account/detail',[AccountController::class, 'account'])->name('customer.account');
 });
 //admin
 Route::prefix('admin')->group(function () {

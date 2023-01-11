@@ -21,6 +21,9 @@ return [
     'started_at' => 'Ngày bắt đầu',
     'ended_at' => 'Ngày kết thúc',
     'status' => 'Trạng thái',
+    'number_phone' => 'Số điện thoại',
+    'full_name' => 'Họ tên',
+    'email' => 'Email',
 
     //brand
     'brand' => 'Thương hiệu',
@@ -61,4 +64,15 @@ return [
     'value' => 'Giá trị', 
     'valuable' => 'Còn giá trị',
     'off_value' => 'Hết giá trị',
+
+    //account
+    'account_detail' => 'Chi tiết tài khoản',
+    'logout' => 'Đăng xuất',
+    'order_history' => 'Lịch sử mua hàng' ,
+    'address' => 'Địa chỉ',
+    'current_password' => 'Mật khẩu hiện tại',
+    'new_password' => 'Mật khẩu mới',
+    'confirm_password' => 'Xác nhận mật khẩu',
+    'password_change' => 'Đổi mật khẩu',
+    
 ];

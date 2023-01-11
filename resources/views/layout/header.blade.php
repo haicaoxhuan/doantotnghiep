@@ -88,9 +88,9 @@
                                 <ul>
                                     <li>
                                         @if (Auth::guard('customer')->check())
-                                        <a title="Login Register" href="#" style="pointer-events: none;"><i class="pe-7s-user"></i></a>
-                                        <ul class="sub-menu-style">
-                                            <li><a href="blog.html" style="font-size:15px ">Thông tin</a></li>
+                                        <a title="Login Register" href="#" ><i class="pe-7s-user"></i></a>
+                                        <ul class="sub-menu-style" style="width: 135px; height: 100px; ">
+                                            <li><a href="{{route('customer.account')}}" style="font-size:15px">Thông tin</a></li>
                                             <li><a onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{route('customer.logout')}}" style="font-size:15px ">Đăng xuất</a></li>
                                               <form id="logout-form" action="{{ route('customer.logout') }}" method="POST">
                                                 @csrf

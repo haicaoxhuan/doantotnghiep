@@ -186,11 +186,7 @@
                                         @endfor
                                     </div>
                                     <h5><span>{{ $item->customer_id ? $item->customer->name : $item->name }}</span> -
-                                        {{ date(
-                                            'M
-                                                                        d, Y',
-                                            strtotime($item->created_at),
-                                        ) }}
+                                        {{ date('Md, Y',strtotime($item->created_at),) }}
                                     </h5>
                                     <p>{{ $item->messages }}</p>
                                 </div>
