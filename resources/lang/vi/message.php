@@ -35,4 +35,8 @@ return [
     'confirm_delete_coupon' => 'Bạn có muốn xóa mã giảm giá này',
     'no_coupon' => 'Không có mã giảm giá hoặc mã đã hết giá trị',
 
+    //order
+    'order_successd' => 'Đặt hàng tành công',
+    'update_status_successd' => 'Cập nhật trạng thái thành công',
+
 ];

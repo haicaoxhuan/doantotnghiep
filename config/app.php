@@ -180,6 +180,8 @@ return [
 
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
+
+        Barryvdh\DomPDF\ServiceProvider::class, 
     ],
 
     /*
@@ -237,6 +239,8 @@ return [
 
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

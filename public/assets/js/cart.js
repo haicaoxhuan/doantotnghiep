@@ -1,19 +1,19 @@
-(function ($) {
-var CartPlusMinus = $(".product-quality");
+(function($) {
+    var CartPlusMinus = $(".product-quality");
     CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
     CartPlusMinus.append('<div class="inc qtybutton">+</div>');
 
-    $('.qty').on('input', function(){
+    $('.qty').on('input', function() {
         var data = $(this).val();
         data = Number(data.replace(/\D/g, ""));
         var quantity = Number($(this).closest('.product-details-content').find('.qty-detail').text());
-        if(data > quantity){
+        if (data > quantity) {
             data = quantity;
         }
         $(this).val(data);
     })
 
-    $(".qtybutton").on("click", function () {
+    $(".qtybutton").on("click", function() {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
         if ($button.text() === "+") {
@@ -35,10 +35,10 @@ var CartPlusMinus = $(".product-quality");
     });
 
     //coupon
-    $(".add-coupon").on("click", function () {
+    $(".add-coupon").on("click", function() {
         addCoupon();
     });
-    
+
     function addCoupon() {
         var coupon = $('input[name="coupon_code"]').val();
         $.ajax({
@@ -50,7 +50,7 @@ var CartPlusMinus = $(".product-quality");
             data: {
                 coupon: coupon,
             },
-            success: function (response) {
+            success: function(response) {
                 var value_code = document.querySelector(".sumCart");
                 var value = Number(value_code.innerHTML.replace(/\D/g, ""));
                 if (response.status === 200) {
@@ -79,13 +79,13 @@ var CartPlusMinus = $(".product-quality");
             type: "GET",
             url: "cart/update",
             data: { id: cart_pro_id, qty: cart_qty, price: car_pro_price },
-            success: function (response) {
+            success: function(response) {
                 item.closest("tr")
                     .find(".cart-pro-subtotal")
                     .html(VND.format(response.subtotal).replaceAll(".", ","));
                 var products = document.querySelectorAll(".cart-pro-subtotal");
                 var sum = 0;
-                $.each(products, function (index, value) {
+                $.each(products, function(index, value) {
                     sum += Number(value.innerHTML.replace(/\D/g, ""));
                 });
                 $(".sumCart").html(VND.format(sum).replaceAll(".", ","));
@@ -93,7 +93,10 @@ var CartPlusMinus = $(".product-quality");
                     $(".total-coupon").html(VND.format(sum).replaceAll(".", ","));
                 }
             },
-            error: function (error) {},
+            error: function(error) {},
         });
     }
-})(jQuery);    
+    $('.submit-cp').on('click', function() {
+        document.getElementById("coupon-cp").submit();
+    })
+})(jQuery);

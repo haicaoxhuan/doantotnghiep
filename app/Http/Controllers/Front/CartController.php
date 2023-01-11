@@ -15,6 +15,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 
 class CartController extends Controller
@@ -215,4 +216,5 @@ class CartController extends Controller
             ],
         ];
     }
+
 }

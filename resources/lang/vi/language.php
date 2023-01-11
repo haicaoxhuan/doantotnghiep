@@ -24,6 +24,8 @@ return [
     'number_phone' => 'Số điện thoại',
     'full_name' => 'Họ tên',
     'email' => 'Email',
+    'stt' =>'#',
+    'subtotal' =>'Thành tiền',
 
     //brand
     'brand' => 'Thương hiệu',
@@ -74,5 +76,27 @@ return [
     'new_password' => 'Mật khẩu mới',
     'confirm_password' => 'Xác nhận mật khẩu',
     'password_change' => 'Đổi mật khẩu',
-    
+    'coupon_value' => 'Giảm giá',
+
+    //order
+    'order' => 'Đơn hàng',
+    'order_code' => 'Mã đơn hàng',
+    'payments' => 'Hình thức thanh toán',
+    'cash' => 'Nhận hàng thanh toán',
+    'transfer' => 'Chuyển khoản',
+    'paypal' => 'Paypal',
+    'unconfirm' => 'Chưa xác nhận',
+    'delivery' => 'Đang giao hàng',
+    'successful' => 'Giao hàng thành công',
+    'order_detail' => 'Chi tiết đơn hàng',
+    'date_order' => 'Ngày đặt hàng',
+    'date_order' => 'Ngày đặt hàng',
+    'from_order' => 'Người gửi',
+    'to_order' => 'Người nhận',
+    'paid' => 'Thanh toán',
+    'paid_susses' => 'Đã thanh toán',
+    'un_paid' => 'Chưa thanh toán',
+    'temporary_pay' => 'Tạm tính',
+    'cancel' => 'Đã hủy',
+
 ];

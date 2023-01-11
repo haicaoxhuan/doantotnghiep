@@ -1,15 +1,13 @@
 @extends('admin.layout.master')
 
 @section('addcssadmin')
-<link rel="stylesheet" href="{{ asset('assets/admin/dist/css/product.css') }}">
 @endsection
-
 @section('bodyadmin')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ trans('language.product') }}</h1>
+                    <h1>{{ trans('language.coupon') }}</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -25,12 +23,13 @@
                             <div class="filter">
                                 <div class="search-container">
                                     <form action="">
-                                      <input type="text" placeholder="Search.." name="search">
-                                      <button type="submit">Submit</button>
+                                        <input type="text" placeholder="Search.." name="search">
+                                        <button type="submit">Submit</button>
                                     </form>
-                                  </div>
+                                </div>
                                 <a class="btn btn-success btn-sm rounded-0 create"
-                                    href="{{ route('admin.product.create') }}"><i class="fa fa-plus pad"></i>{{trans('language.create')}}</a>
+                                    href="{{ route('admin.coupon.create') }}"><i
+                                        class="fa fa-plus pad"></i>{{ trans('language.create') }}</a>
                             </div>
 
                         </div>
@@ -38,40 +37,42 @@
                         <table class="table table-bordered table-image">
                             <thead>
                                 <tr>
-                                    <th class="text-center stt" scope="col">#</th>
-                                    <th class="text-center pro-name" scope="col">{{trans('language.product_name')}}</th>
-                                    <th class="text-center pro-img" scope="col">{{trans('language.image')}}</th>
-                                    <th class="text-center pro-price" scope="col">{{trans('language.price')}}</th>
-                                    <th class="text-center pro-color" scope="col">{{trans('language.color')}}</th>
-                                    <th class="text-center qty" scope="col">{{trans('language.qty')}}</th>
-                                    <th class="text-center sku" scope="col">{{trans('language.sku')}}</th>
-                                    <th class="text-center featured" scope="col">{{trans('language.featured')}}</th>
-                                    <th class="text-center action" scope="col">{{trans('language.action')}}</th>
+                                    <th class="text-center " scope="col">#</th>
+                                    <th class="text-center " scope="col">{{ trans('language.coupon_name') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.value') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.qty') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.started_at') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.ended_at') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.status') }}</th>
+                                    <th class="text-center " scope="col">{{ trans('language.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($products as $idx => $product)
+                                @foreach ($coupons as $idx => $coupon)
                                     <tr br-name>
                                         <td class="text-center">
-                                            {{ isset($idx) ? ($products->currentPage() - 1) * $products->perPage() + $idx + 1 : '' }}
+                                            {{ isset($idx) ? ($coupons->currentPage() - 1) * $coupons->perPage() + $idx + 1 : '' }}
                                         </td>
-                                        <td class="text-center">{{ $product->name }}</td>
-                                        <td class="text-center"> <img src="{{ asset($product->images[0]) }}"  alt=""class="img-br"></td>
-                                        <td class="text-center">{{number_format($product->minPrice)}}đ - {{number_format($product->maxPrice)}}đ</td>
-                                        <td class="text-center">{{$product->color}}</td>
-                                        <td class="text-center">{{$product->qty}}</td>
-                                        <td class="text-center">{{$product->sku}}</td>
-                                        <td class="text-center">{!! \App\Models\Product::checkFeatured($product->featured) !!}</td>
+                                        <td class="text-center">{{ $coupon->name }}</td>
+                                        <td class="text-center">{{ $coupon->value }}%</td>
+                                        <td class="text-center">{{ $coupon->quantity }}</td>
+                                        <td class="text-center">{{ date('H:i d/m/Y', strtotime($coupon->started_at)) }}
+                                        </td>
+                                        <td class="text-center">{{ date('H:i d/m/Y', strtotime($coupon->ended_at)) }}</td>
+                                        <td class="text-center">{!! \App\Models\Coupon::checkStatus($coupon->status) !!}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-sm rounded-0" href="{{ route('admin.product.edit', ['id' => $product->id]) }}"><i class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
-                                            @if($product->deleted_at  == null)
-                                            <a class="btn btn-danger btn-sm rounded-0 deleteTable" href="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
-                                                data-id="{{$product->id}}"
-                                                data-title="{{trans('message.confirm_delete_product')}}" 
-                                                data-text="<span >{{$product->name}}</span>" 
-                                                data-url="{{ route('admin.product.destroy', ['id' => $product->id]) }}"
-                                                data-method="DELETE" data-icon="question">
-                                                <i class="fa fa-trash pad"></i>{{ trans('language.delete') }}</a>
+                                            <a class="btn btn-primary btn-sm rounded-0"
+                                                href="{{ route('admin.coupon.edit', ['id' => $coupon->id]) }}"><i
+                                                    class="fa fa-edit pad"></i>{{ trans('language.edit') }}</a>
+                                            @if ($coupon->deleted_at == null)
+                                                <a class="btn btn-danger btn-sm rounded-0 deleteTable"
+                                                    href="{{ route('admin.coupon.destroy', ['id' => $coupon->id]) }}"
+                                                    data-id="{{ $coupon->id }}"
+                                                    data-title="{{ trans('message.confirm_delete_coupon') }}"
+                                                    data-text="<span >{{ $coupon->name }}</span>"
+                                                    data-url="{{ route('admin.coupon.destroy', ['id' => $coupon->id]) }}"
+                                                    data-method="DELETE" data-icon="question">
+                                                    <i class="fa fa-trash pad"></i>{{ trans('language.delete') }}</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -80,7 +81,7 @@
                         </table>
                         <div>
                             <div style="float: right; padding-right: 10px">
-                                {{ $products->links('pagination::bootstrap-4') }}
+                                {{ $coupons->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                         <!-- /.card -->
